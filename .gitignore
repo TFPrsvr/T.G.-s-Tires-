@@ -30,8 +30,31 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files - NEVER COMMIT
+.env
+.env*.local
+.env.development
+.env.production
+.env.staging
+.env.test
+
+# Claude Code files - NEVER COMMIT
+CLAUDE.md
+PROJECT_MEMORY.md
+*.claude.md
+
+# Security and secrets
 .env*
+*.key
+*.pem
+*.p12
+*.keystore
+secret*
+secrets/
+private/
+auth/
+credentials/
+certificates/
 
 # vercel
 .vercel
@@ -39,3 +62,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary folders
+tmp/
+temp/
