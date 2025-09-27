@@ -7,7 +7,7 @@ interface RateLimitEntry {
 export class RateLimiter {
   private static store = new Map<string, RateLimitEntry>();
 
-  private static readonly LIMITS = {
+  public static readonly LIMITS = {
     API: { requests: 100, window: 60 * 1000 }, // 100 requests per minute
     LOGIN: { requests: 5, window: 15 * 60 * 1000 }, // 5 attempts per 15 minutes
     UPLOAD: { requests: 10, window: 5 * 60 * 1000 }, // 10 uploads per 5 minutes

@@ -1,10 +1,29 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { RateLimiter } from '@/lib/security/rate-limiter';
 import { IPSecurityManager } from '@/lib/security/ip-security';
 import { SecurityInputValidator } from '@/lib/security/input-validator';
 
-export function middleware(request: NextRequest) {
+// Define protected routes that require authentication
+const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/profile(.*)',
+  '/api/messaging(.*)',
+  '/api/payments(.*)',
+  '/api/social-media(.*)',
+]);
+
+// Define public routes that should never redirect
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/test(.*)',
+  '/api/health(.*)',
+]);
+
+function securityMiddleware(request: NextRequest): NextResponse | null {
   const start = Date.now();
   const ip = getClientIP(request);
   const userAgent = request.headers.get('user-agent') || '';
@@ -77,8 +96,36 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  return response;
+  return null; // Let Clerk middleware continue with its own response
 }
+
+export default clerkMiddleware(async (auth, req) => {
+  // Apply security middleware first
+  const securityResponse = securityMiddleware(req);
+
+  // If security middleware blocks the request, return early
+  if (securityResponse) {
+    return securityResponse;
+  }
+
+  // Always allow public routes (sign-in, sign-up, home) without any auth checks
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
+
+  // Check if this is a protected route
+  if (isProtectedRoute(req)) {
+    // For newer Clerk versions, use auth() to check authentication
+    const { userId } = await auth();
+    if (!userId) {
+      // Redirect to sign-in if not authenticated
+      return NextResponse.redirect(new URL('/sign-in', req.url));
+    }
+  }
+
+  // Continue with Clerk's default behavior
+  return NextResponse.next();
+});
 
 function getClientIP(request: NextRequest): string {
   // Try various headers to get the real client IP
@@ -98,7 +145,8 @@ function getClientIP(request: NextRequest): string {
     return cfConnectingIp;
   }
 
-  return request.ip || '127.0.0.1';
+  // Fallback to localhost if no IP headers are available
+  return '127.0.0.1';
 }
 
 export const config = {

@@ -134,7 +134,7 @@ class SocialMediaManager {
 
     const hashtags = [
       '#YardSale', '#GarageSale', '#UsedItems', '#Deals',
-      '#TGsTires', '#${item.category.replace(/\s+/g, '')}',
+      '#TGsTires', `#${item.category.replace(/\s+/g, '')}`,
       '#SecondHand', '#Bargains'
     ];
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
+import twilio from 'twilio';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,12 +22,12 @@ export async function POST(request: NextRequest) {
 
     // In production, use Twilio SDK
     if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
-      const twilio = require('twilio')(
+      const client = twilio(
         process.env.TWILIO_ACCOUNT_SID,
         process.env.TWILIO_AUTH_TOKEN
       );
 
-      const message = await twilio.messages.create({
+      const message = await client.messages.create({
         body: messageBody,
         from: from || process.env.TWILIO_PHONE_NUMBER,
         to: to,

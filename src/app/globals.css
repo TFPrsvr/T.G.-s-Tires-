@@ -122,25 +122,26 @@
 
 /* T.G.'s Tires - Universal Button Styles */
 .btn-primary {
-  background: #ffffff;
-  color: #2563eb;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 18px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  max-width: 16vw;
-  min-width: 140px;
-  min-height: 35px;
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  background: #ffffff !important;
+  color: #2563eb !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  border: 2px solid #2563eb !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  max-width: none !important;
+  min-width: 160px !important;
+  min-height: 50px !important;
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
 }
 
 .btn-primary:hover {
@@ -152,25 +153,26 @@
 }
 
 .btn-gradient-primary {
-  background: linear-gradient(to right, #2563eb, #1d4ed8);
-  color: #ffffff;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  max-width: 16vw;
-  min-width: 140px;
-  min-height: 35px;
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  background: linear-gradient(to right, #2563eb, #1d4ed8) !important;
+  color: #ffffff !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  max-width: none !important;
+  min-width: 160px !important;
+  min-height: 50px !important;
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
 }
 
 .btn-gradient-primary:hover {
@@ -292,4 +294,47 @@ input[type="radio"],
 select {
   min-height: 44px;
   min-width: 44px;
+}
+
+/* FORCE BUTTON STYLES - OVERRIDE EVERYTHING */
+a.btn-primary,
+.btn-primary {
+  background: #ffffff !important;
+  color: #2563eb !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  border: 2px solid #2563eb !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  min-width: 160px !important;
+  min-height: 50px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+}
+
+a.btn-gradient-primary,
+.btn-gradient-primary {
+  background: linear-gradient(to right, #2563eb, #1d4ed8) !important;
+  color: #ffffff !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  min-width: 160px !important;
+  min-height: 50px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
 }

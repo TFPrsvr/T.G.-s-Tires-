@@ -26,13 +26,49 @@ export default async function HomePage() {
             <Car className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-gray-900">T.G.'s Tires</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <Button asChild variant="outline" className="btn-primary">
-              <Link href="/sign-in">Sign In</Link>
-            </Button>
-            <Button asChild className="btn-gradient-primary">
-              <Link href="/sign-up">Get Started</Link>
-            </Button>
+          <div className="flex items-center gap-12">
+            <a
+              href="/sign-in"
+              className="btn-primary"
+              style={{
+                background: '#ffffff',
+                color: '#2563eb',
+                padding: '16px 32px',
+                borderRadius: '12px',
+                fontWeight: '600',
+                fontSize: '18px',
+                border: '2px solid #2563eb',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minWidth: '160px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              Sign In
+            </a>
+            <a
+              href="/sign-up"
+              className="btn-gradient-primary"
+              style={{
+                background: 'linear-gradient(to right, #2563eb, #1d4ed8)',
+                color: '#ffffff',
+                padding: '16px 32px',
+                borderRadius: '12px',
+                fontWeight: '600',
+                fontSize: '18px',
+                border: 'none',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minWidth: '160px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              Get Started
+            </a>
           </div>
         </nav>
       </header>
@@ -49,13 +85,13 @@ export default async function HomePage() {
             List your used tires, offer professional rim mounting services, and sell yard sale items.
             Accept secure payments and manage everything from one dashboard.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="btn-gradient-primary text-lg px-8 py-6">
-              <Link href="/sign-up">Start Selling Today</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="btn-primary text-lg px-8 py-6">
-              <Link href="/marketplace">Browse Marketplace</Link>
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-8 justify-center">
+            <a href="/sign-up" className="btn-gradient-primary text-lg px-8 py-6">
+              Start Selling Today
+            </a>
+            <a href="/marketplace" className="btn-primary text-lg px-8 py-6">
+              Browse Marketplace
+            </a>
           </div>
         </section>
 
@@ -103,9 +139,9 @@ export default async function HomePage() {
             Join hundreds of tire sellers who trust T.G.'s Tires for their marketplace needs.
             Professional tools, secure payments, and unlimited listings.
           </p>
-          <Button asChild size="lg" className="btn-gradient-primary text-lg px-8 py-6">
-            <Link href="/sign-up">Create Free Account</Link>
-          </Button>
+          <a href="/sign-up" className="btn-gradient-primary text-lg px-8 py-6">
+            Create Free Account
+          </a>
         </section>
       </main>
 

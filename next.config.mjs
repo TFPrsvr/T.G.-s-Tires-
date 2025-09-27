@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: {},
-  },
+  turbopack: {},
   async headers() {
     return [
       {
@@ -12,12 +10,14 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://clerk.dev",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://clerk.dev https://*.clerk.accounts.dev https://challenges.cloudflare.com https://cloudflareinsights.com blob:",
+              "script-src-elem 'self' 'unsafe-inline' https://js.stripe.com https://clerk.dev https://*.clerk.accounts.dev https://challenges.cloudflare.com https://cloudflareinsights.com",
+              "worker-src 'self' blob:",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://challenges.cloudflare.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://api.stripe.com https://clerk.dev https://api.clerk.dev https://uploadthing.com",
-              "frame-src https://js.stripe.com https://hooks.stripe.com",
+              "connect-src 'self' https://api.stripe.com https://clerk.dev https://api.clerk.dev https://*.clerk.accounts.dev https://uploadthing.com https://challenges.cloudflare.com https://cloudflareinsights.com https://clerk-telemetry.com",
+              "frame-src https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
@@ -66,17 +66,6 @@ const nextConfig = {
   },
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-    return config;
   },
 };
 
