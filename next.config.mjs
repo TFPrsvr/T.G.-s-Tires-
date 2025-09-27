@@ -1,3 +1,5 @@
+import withPWA from 'next-pwa';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: {},
@@ -69,4 +71,44 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/zydvqvjoazsymbscjnzx\.supabase\.co\/rest\/v1\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'supabase-cache',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+        }
+      }
+    },
+    {
+      urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts-cache',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+        }
+      }
+    },
+    {
+      urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif|ico)$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-image-cache',
+        expiration: {
+          maxEntries: 64,
+          maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+        }
+      }
+    }
+  ]
+})(nextConfig);

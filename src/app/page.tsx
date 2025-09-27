@@ -26,7 +26,7 @@ export default async function HomePage() {
             <Car className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-gray-900">T.G.'s Tires</span>
           </div>
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-6 space-x-4">
             <a
               href="/sign-in"
               className="btn-primary"
@@ -86,10 +86,26 @@ export default async function HomePage() {
             Accept secure payments and manage everything from one dashboard.
           </p>
           <div className="flex flex-col sm:flex-row gap-8 justify-center">
-            <a href="/sign-up" className="btn-gradient-primary text-lg px-8 py-6">
+            <a
+              href="/sign-up"
+              className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
+              style={{
+                background: 'linear-gradient(to right, #64748b, #475569)',
+                minWidth: '200px'
+              }}
+            >
               Start Selling Today
             </a>
-            <a href="/marketplace" className="btn-primary text-lg px-8 py-6">
+            <a
+              href="/marketplace"
+              className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
+              style={{
+                background: '#ffffff',
+                color: '#64748b',
+                border: '2px solid #64748b',
+                minWidth: '200px'
+              }}
+            >
               Browse Marketplace
             </a>
           </div>
@@ -139,19 +155,26 @@ export default async function HomePage() {
             Join hundreds of tire sellers who trust T.G.'s Tires for their marketplace needs.
             Professional tools, secure payments, and unlimited listings.
           </p>
-          <a href="/sign-up" className="btn-gradient-primary text-lg px-8 py-6">
+          <a
+            href="/sign-up"
+            className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
+            style={{
+              background: 'linear-gradient(to right, #64748b, #475569)',
+              minWidth: '220px'
+            }}
+          >
             Create Free Account
           </a>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 mt-16 border-t">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="text-gray-600 mb-4 md:mb-0">
+      <footer className="container mx-auto px-4 py-4 mt-16 border-t">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
+          <div className="text-sm text-gray-600">
             © 2024 T.G.'s Tires. Professional tire marketplace.
           </div>
-          <div className="flex space-x-6 text-gray-600">
+          <div className="flex space-x-6 text-sm text-gray-600">
             <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms</Link>
             <Link href="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>

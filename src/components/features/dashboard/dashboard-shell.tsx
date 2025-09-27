@@ -109,26 +109,40 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
       {/* Mobile Navigation */}
       <div className="md:hidden bg-white border-b">
         <div className="container px-4">
-          <Tabs defaultValue="dashboard" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="dashboard" className="flex items-center gap-2">
-                <Home className="h-4 w-4" />
-                <span className="sr-only">Dashboard</span>
-              </TabsTrigger>
-              <TabsTrigger value="listings" className="flex items-center gap-2">
-                <Car className="h-4 w-4" />
-                <span className="sr-only">Listings</span>
-              </TabsTrigger>
-              <TabsTrigger value="yard-sale" className="flex items-center gap-2">
-                <ShoppingBag className="h-4 w-4" />
-                <span className="sr-only">Yard Sale</span>
-              </TabsTrigger>
-              <TabsTrigger value="more" className="flex items-center gap-2">
-                <Settings className="h-4 w-4" />
-                <span className="sr-only">More</span>
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <div className="grid grid-cols-4 gap-2 py-2">
+            <Link
+              href="/dashboard"
+              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Dashboard home"
+            >
+              <Home className="h-5 w-5 text-gray-600" />
+              <span className="text-xs font-medium text-gray-600">Home</span>
+            </Link>
+            <Link
+              href="/dashboard/listings"
+              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Tire listings management"
+            >
+              <Car className="h-5 w-5 text-gray-600" />
+              <span className="text-xs font-medium text-gray-600">Tires</span>
+            </Link>
+            <Link
+              href="/dashboard/yard-sale"
+              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Yard sale items"
+            >
+              <ShoppingBag className="h-5 w-5 text-gray-600" />
+              <span className="text-xs font-medium text-gray-600">Yard Sale</span>
+            </Link>
+            <Link
+              href="/dashboard/settings"
+              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Account settings"
+            >
+              <Settings className="h-5 w-5 text-gray-600" />
+              <span className="text-xs font-medium text-gray-600">Settings</span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -139,22 +153,22 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
 
       {/* Footer */}
       <footer className="border-t bg-white">
-        <div className="container px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="container px-4 py-3">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
             <div className="text-sm text-gray-600">
-              © 2024 T.G.'s Tires. Professional tire marketplace with secure payments.
+              © 2024 T.G.'s Tires. Professional tire marketplace.
             </div>
             <div className="flex items-center space-x-4 text-sm text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">
-                Privacy Policy
+                Privacy
               </Link>
               <Separator orientation="vertical" className="h-4" />
               <Link href="/terms" className="hover:text-blue-600 transition-colors">
-                Terms of Service
+                Terms
               </Link>
               <Separator orientation="vertical" className="h-4" />
               <Link href="/contact" className="hover:text-blue-600 transition-colors">
-                Contact Support
+                Contact
               </Link>
             </div>
           </div>

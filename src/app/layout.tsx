@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   authors: [{ name: "T.G.'s Tires" }],
   creator: "T.G.'s Tires",
   publisher: "T.G.'s Tires",
+  manifest: "/manifest.json",
+  themeColor: "#64748b",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "T.G.'s Tires",
+    startupImage: "/icons/icon-512x512.png",
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -43,6 +51,16 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icons/icon-152x152.png", sizes: "152x152", type: "image/png" },
+      { url: "/icons/icon-180x180.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 

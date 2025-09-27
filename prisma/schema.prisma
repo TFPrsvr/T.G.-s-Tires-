@@ -1,0 +1,418 @@
+// T.G.'s Tires Marketplace Database Schema
+// Comprehensive schema for tire marketplace platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  phone     String?
+  avatar    String?
+
+  // Business Information
+  businessName        String?
+  businessDescription String?
+  businessAddress     String?
+  businessHours       String?
+
+  // Settings
+  emailNotifications    Boolean @default(true)
+  smsNotifications      Boolean @default(false)
+  desktopNotifications  Boolean @default(true)
+  marketingEmails       Boolean @default(false)
+
+  // Profile visibility
+  profileVisible        Boolean @default(true)
+  showContactInfo       Boolean @default(true)
+  analyticsTracking     Boolean @default(false)
+
+  role      UserRole @default(SELLER)
+  status    UserStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tireListings    TireListing[]
+  yardSaleItems   YardSaleItem[]
+  messages        Message[]
+  notifications   Notification[]
+  teamMemberships TeamMember[]
+  reviews         Review[]
+  orders          Order[]
+
+  @@map("users")
+}
+
+model TeamMember {
+  id       String   @id @default(cuid())
+  userId   String
+  teamId   String
+  role     TeamRole @default(MEMBER)
+  status   InvitationStatus @default(PENDING)
+
+  invitedBy String?
+  invitedAt DateTime @default(now())
+  joinedAt  DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, teamId])
+  @@map("team_members")
+}
+
+// Tire Listings
+model TireListing {
+  id          String @id @default(cuid())
+  title       String
+  description String
+
+  // Tire specifications
+  brand       String
+  model       String?
+  size        String
+  treadDepth  Int
+  condition   TireCondition
+  quantity    Int      @default(1)
+
+  // Pricing
+  price                 Decimal  @db.Decimal(10, 2)
+  rimServiceAvailable   Boolean  @default(false)
+  rimServicePrice       Decimal? @db.Decimal(10, 2)
+
+  // Listing details
+  images      String[] @default([])
+  status      ListingStatus @default(DRAFT)
+  featured    Boolean  @default(false)
+  views       Int      @default(0)
+
+  // Location and contact
+  location    String?
+  contactInfo String?
+
+  // Metadata
+  sellerId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+  soldAt      DateTime?
+
+  // Relations
+  seller   User      @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  orders   Order[]
+  reviews  Review[]
+  messages Message[]
+
+  @@map("tire_listings")
+}
+
+// Yard Sale Items
+model YardSaleItem {
+  id          String @id @default(cuid())
+  title       String
+  description String
+
+  // Item details
+  category    YardSaleCategory
+  brand       String?
+  size        String?
+  condition   ItemCondition
+  quantity    Int      @default(1)
+
+  // Pricing and options
+  price           Decimal @db.Decimal(10, 2)
+  negotiable      Boolean @default(false)
+  pickupOnly      Boolean @default(false)
+  cashOnly        Boolean @default(false)
+
+  // Sale event details
+  saleDate    DateTime?
+  saleTime    String?
+  saleAddress String?
+
+  // Listing details
+  images    String[] @default([])
+  status    ListingStatus @default(DRAFT)
+  views     Int      @default(0)
+
+  // Metadata
+  sellerId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  soldAt    DateTime?
+
+  // Relations
+  seller User @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@map("yard_sale_items")
+}
+
+// Orders and Transactions
+model Order {
+  id          String @id @default(cuid())
+  orderNumber String @unique
+
+  // Order details
+  buyerId     String
+  sellerId    String
+  listingId   String
+  listingType OrderType
+
+  // Pricing
+  itemPrice       Decimal @db.Decimal(10, 2)
+  servicePrice    Decimal @db.Decimal(10, 2) @default(0)
+  totalAmount     Decimal @db.Decimal(10, 2)
+
+  // Payment
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentMethod   String?
+  stripePaymentId String?
+
+  // Order status
+  status      OrderStatus @default(PENDING)
+
+  // Shipping/Pickup
+  deliveryMethod  DeliveryMethod
+  deliveryAddress String?
+  deliveryNotes   String?
+
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  completedAt DateTime?
+
+  // Relations
+  buyer   User        @relation(fields: [buyerId], references: [id])
+  listing TireListing @relation(fields: [listingId], references: [id])
+
+  @@map("orders")
+}
+
+// Messages and Communication
+model Message {
+  id        String @id @default(cuid())
+  subject   String?
+  content   String
+
+  // Participants
+  senderId    String
+  recipientId String?
+  listingId   String?
+
+  // Message details
+  messageType MessageType @default(INQUIRY)
+  status      MessageStatus @default(UNREAD)
+  priority    MessagePriority @default(NORMAL)
+
+  // Metadata
+  createdAt DateTime @default(now())
+  readAt    DateTime?
+
+  // Relations
+  sender  User         @relation(fields: [senderId], references: [id])
+  listing TireListing? @relation(fields: [listingId], references: [id])
+
+  @@map("messages")
+}
+
+// Notifications
+model Notification {
+  id      String @id @default(cuid())
+  title   String
+  message String
+
+  // Notification details
+  type        NotificationType
+  priority    NotificationPriority @default(MEDIUM)
+  status      NotificationStatus   @default(UNREAD)
+
+  // Targeting
+  userId      String
+  relatedId   String? // Can reference any related entity
+  relatedType String? // Type of related entity
+
+  // Metadata
+  createdAt DateTime @default(now())
+  readAt    DateTime?
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+// Reviews and Ratings
+model Review {
+  id        String @id @default(cuid())
+  rating    Int    // 1-5 stars
+  comment   String?
+
+  // Review details
+  reviewerId String
+  listingId  String
+  orderId    String?
+
+  // Review type
+  reviewType ReviewType @default(SELLER)
+
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  reviewer User        @relation(fields: [reviewerId], references: [id])
+  listing  TireListing @relation(fields: [listingId], references: [id])
+
+  @@unique([reviewerId, listingId])
+  @@map("reviews")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  SELLER
+  BUYER
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+  PENDING_VERIFICATION
+}
+
+enum TeamRole {
+  ADMIN
+  MANAGER
+  MEMBER
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+}
+
+enum TireCondition {
+  LIKE_NEW
+  GOOD
+  FAIR
+  POOR
+}
+
+enum ItemCondition {
+  EXCELLENT
+  VERY_GOOD
+  GOOD
+  FAIR
+  POOR
+}
+
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  PENDING
+  SOLD
+  EXPIRED
+  REMOVED
+}
+
+enum YardSaleCategory {
+  FURNITURE
+  ELECTRONICS
+  CLOTHING
+  TOYS
+  BOOKS
+  KITCHEN
+  DECOR
+  TOOLS
+  SPORTS
+  OTHER
+}
+
+enum OrderType {
+  TIRE
+  YARD_SALE
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum DeliveryMethod {
+  PICKUP
+  DELIVERY
+  SHIPPING
+}
+
+enum MessageType {
+  INQUIRY
+  OFFER
+  SYSTEM
+  SUPPORT
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+enum MessagePriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum NotificationType {
+  MESSAGE
+  SALE
+  LISTING
+  TEAM
+  SYSTEM
+  PAYMENT
+}
+
+enum NotificationPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+  DISMISSED
+}
+
+enum ReviewType {
+  SELLER
+  BUYER
+  PRODUCT
+}
