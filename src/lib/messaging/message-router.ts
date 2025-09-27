@@ -210,7 +210,7 @@ export class MessageRouter {
           subject: 'Reply from T.G.\'s Tires',
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 20px; text-align: center;">
+              <div style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; padding: 20px; text-align: center;">
                 <h1 style="margin: 0;">T.G.'s Tires</h1>
                 <p style="margin: 5px 0 0 0; opacity: 0.9;">Professional Tire Marketplace</p>
               </div>
@@ -221,7 +221,7 @@ export class MessageRouter {
                 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                 <p style="color: #6b7280; font-size: 14px; margin: 0;">
                   Reply to this email to continue the conversation, or visit our website at
-                  <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color: #2563eb;">tgstires.com</a>
+                  <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color: #64748b;">tgstires.com</a>
                 </p>
               </div>
             </div>

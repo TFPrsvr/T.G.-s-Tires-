@@ -143,7 +143,7 @@ export function PaymentOptions({ item, itemType }: PaymentOptionsProps) {
           subject: `Secure Payment Link - ${item.title} from T.G.'s Tires`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 20px; text-align: center;">
+              <div style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; padding: 20px; text-align: center;">
                 <h1 style="margin: 0;">T.G.'s Tires</h1>
                 <p style="margin: 5px 0 0 0;">Secure Payment Link</p>
               </div>
@@ -156,7 +156,7 @@ export function PaymentOptions({ item, itemType }: PaymentOptionsProps) {
                   ${linkData.includeRimService ? '<p style="margin: 10px 0 0 0; color: #6b7280; font-size: 14px;">Includes professional rim mounting service</p>' : ''}
                 </div>
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${paymentLink}" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
+                  <a href="${paymentLink}" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
                     Complete Secure Payment
                   </a>
                 </div>

@@ -60,7 +60,7 @@ export default function RootLayout({
       appearance={{
         baseTheme: undefined,
         variables: {
-          colorPrimary: "#3b82f6",
+          colorPrimary: "#64748b",
           colorText: "#1f2937",
           colorTextOnPrimaryBackground: "#ffffff",
           colorBackground: "#ffffff",
@@ -70,12 +70,12 @@ export default function RootLayout({
         },
         elements: {
           formButtonPrimary: {
-            background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
+            background: "linear-gradient(135deg, #64748b 0%, #475569 100%)",
             borderRadius: "0.75rem",
             border: "none",
             boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
             "&:hover": {
-              background: "linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%)",
+              background: "linear-gradient(135deg, #475569 0%, #334155 100%)",
               transform: "translateY(-1px)",
               boxShadow: "0 8px 15px -3px rgb(0 0 0 / 0.1)",
             },

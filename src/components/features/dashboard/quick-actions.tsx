@@ -27,7 +27,7 @@ export function QuickActions() {
       title: "Share to Social Media",
       description: "Post your listings to Facebook, Instagram, and more",
       icon: Share2,
-      href: "/dashboard/social",
+      href: "/dashboard/social-media",
       variant: "outline" as const,
       className: "btn-primary",
     },

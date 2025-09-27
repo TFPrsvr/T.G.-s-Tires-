@@ -281,7 +281,7 @@ export class PaymentProcessor {
           <title>Receipt from T.G.'s Tires</title>
         </head>
         <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
+          <div style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
             <h1 style="margin: 0; font-size: 28px;">T.G.'s Tires</h1>
             <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 16px;">Professional Tire Marketplace</p>
           </div>
@@ -333,7 +333,7 @@ export class PaymentProcessor {
             </div>
 
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600;">
+              <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600;">
                 Visit Our Marketplace
               </a>
             </div>

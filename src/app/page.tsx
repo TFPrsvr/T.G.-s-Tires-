@@ -32,12 +32,12 @@ export default async function HomePage() {
               className="btn-primary"
               style={{
                 background: '#ffffff',
-                color: '#2563eb',
+                color: '#64748b',
                 padding: '16px 32px',
                 borderRadius: '12px',
                 fontWeight: '600',
                 fontSize: '18px',
-                border: '2px solid #2563eb',
+                border: '2px solid #64748b',
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -52,7 +52,7 @@ export default async function HomePage() {
               href="/sign-up"
               className="btn-gradient-primary"
               style={{
-                background: 'linear-gradient(to right, #2563eb, #1d4ed8)',
+                background: 'linear-gradient(to right, #64748b, #475569)',
                 color: '#ffffff',
                 padding: '16px 32px',
                 borderRadius: '12px',

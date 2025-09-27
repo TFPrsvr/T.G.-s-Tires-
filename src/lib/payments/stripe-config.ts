@@ -36,7 +36,7 @@ export const STRIPE_CONFIG = {
   APPEARANCE: {
     theme: 'stripe' as const,
     variables: {
-      colorPrimary: '#2563eb',
+      colorPrimary: '#64748b',
       colorBackground: '#ffffff',
       colorText: '#1f2937',
       colorDanger: '#df1b41',
@@ -51,7 +51,7 @@ export const STRIPE_CONFIG = {
         boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
       },
       '.Input:focus': {
-        border: '1px solid #2563eb',
+        border: '1px solid #64748b',
         boxShadow: '0 0 0 3px rgba(37, 99, 235, 0.1)',
       },
       '.Label': {

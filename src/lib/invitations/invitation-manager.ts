@@ -347,7 +347,7 @@ class InvitationManager {
 
     return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: white;">
-        <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 30px; text-align: center;">
+        <div style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; padding: 30px; text-align: center;">
           <h1 style="margin: 0; font-size: 28px;">T.G.'s Tires</h1>
           <p style="margin: 10px 0 0 0; font-size: 16px;">You're Invited!</p>
         </div>
@@ -385,7 +385,7 @@ class InvitationManager {
 
           <div style="text-align: center; margin: 30px 0;">
             <a href="${inviteUrl}"
-               style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+               style="background: linear-gradient(135deg, #64748b 0%, #475569 100%);
                       color: white;
                       padding: 15px 30px;
                       text-decoration: none;

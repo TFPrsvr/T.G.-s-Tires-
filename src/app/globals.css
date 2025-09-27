@@ -123,12 +123,12 @@
 /* T.G.'s Tires - Universal Button Styles */
 .btn-primary {
   background: #ffffff !important;
-  color: #2563eb !important;
+  color: #64748b !important;
   padding: 16px 32px !important;
   border-radius: 12px !important;
   font-weight: 600 !important;
   font-size: 18px !important;
-  border: 2px solid #2563eb !important;
+  border: 2px solid #64748b !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   max-width: none !important;
@@ -148,12 +148,12 @@
   background: #f9fafb;
   transform: translateY(-4px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-  color: #2563eb;
+  color: #64748b;
   text-decoration: none;
 }
 
 .btn-gradient-primary {
-  background: linear-gradient(to right, #2563eb, #1d4ed8) !important;
+  background: linear-gradient(to right, #64748b, #475569) !important;
   color: #ffffff !important;
   padding: 16px 32px !important;
   border-radius: 12px !important;
@@ -176,7 +176,7 @@
 }
 
 .btn-gradient-primary:hover {
-  background: linear-gradient(to right, #1d4ed8, #1e40af);
+  background: linear-gradient(to right, #475569, #334155);
   transform: translateY(-4px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
   color: #ffffff;
@@ -276,7 +276,7 @@ textarea:focus {
   width: 20px;
   height: 20px;
   border: 2px solid #e5e7eb;
-  border-top: 2px solid #3b82f6;
+  border-top: 2px solid #64748b;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   transform: translate(-50%, -50%);
@@ -300,12 +300,12 @@ select {
 a.btn-primary,
 .btn-primary {
   background: #ffffff !important;
-  color: #2563eb !important;
+  color: #64748b !important;
   padding: 16px 32px !important;
   border-radius: 12px !important;
   font-weight: 600 !important;
   font-size: 18px !important;
-  border: 2px solid #2563eb !important;
+  border: 2px solid #64748b !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   min-width: 160px !important;
@@ -320,7 +320,7 @@ a.btn-primary,
 
 a.btn-gradient-primary,
 .btn-gradient-primary {
-  background: linear-gradient(to right, #2563eb, #1d4ed8) !important;
+  background: linear-gradient(to right, #64748b, #475569) !important;
   color: #ffffff !important;
   padding: 16px 32px !important;
   border-radius: 12px !important;
