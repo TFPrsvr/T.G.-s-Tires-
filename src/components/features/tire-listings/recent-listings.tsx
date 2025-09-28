@@ -1,55 +1,82 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, DollarSign, Calendar, ArrowRight } from "lucide-react";
+import { Eye, DollarSign, Calendar, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
-// Mock data - in production, this would come from your database
-const mockListings = [
-  {
-    id: "1",
-    title: "Michelin All-Season Tires - 225/60R16",
-    price: 320,
-    condition: "Good",
-    views: 45,
-    dateUploaded: "2024-03-15",
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: true,
-    rimServicePrice: 40,
-    status: "active",
-  },
-  {
-    id: "2",
-    title: "Bridgestone Winter Tires - 205/55R16",
-    price: 280,
-    condition: "Like New",
-    views: 32,
-    dateUploaded: "2024-03-14",
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: false,
-    status: "active",
-  },
-  {
-    id: "3",
-    title: "Goodyear Performance Tires - 245/45R17",
-    price: 450,
-    condition: "Fair",
-    views: 28,
-    dateUploaded: "2024-03-13",
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: true,
-    rimServicePrice: 50,
-    status: "pending",
-  },
-];
+interface TireListing {
+  id: string;
+  title: string;
+  brand: string;
+  size: string;
+  condition: string;
+  price: number;
+  status: string;
+  views: number;
+  createdAt: string;
+  publishedAt: string | null;
+}
 
 export function RecentListings() {
+  const [listings, setListings] = useState<TireListing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const response = await fetch('/api/listings?limit=3');
+        if (response.ok) {
+          const data = await response.json();
+          setListings(data.listings || []);
+        }
+      } catch (error) {
+        console.error('Error fetching recent listings:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <Card key={i} className="product-card">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-center h-20">
+                <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  if (listings.length === 0) {
+    return (
+      <div className="space-y-4">
+        <Card className="product-card">
+          <CardContent className="p-6 text-center">
+            <p className="text-gray-500">No listings yet. Create your first tire listing to get started!</p>
+            <Button asChild className="mt-4 btn-gradient-primary">
+              <Link href="/dashboard/listings/new">
+                Create Listing
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
   return (
     <div className="space-y-4">
-      {mockListings.map((listing) => (
+      {listings.map((listing) => (
         <Card key={listing.id} className="product-card">
           <CardContent className="p-4">
             <div className="flex gap-4">
@@ -69,14 +96,19 @@ export function RecentListings() {
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
                       <Badge
-                        variant={listing.condition === "Like New" ? "default" : "secondary"}
+                        variant={listing.condition === "LIKE_NEW" ? "default" : "secondary"}
                         className="text-xs"
                       >
-                        {listing.condition}
+                        {listing.condition.replace('_', ' ')}
                       </Badge>
-                      {listing.status === "pending" && (
+                      {listing.status === "PENDING" && (
                         <Badge variant="outline" className="text-xs status-warning">
                           Pending
+                        </Badge>
+                      )}
+                      {listing.status === "DRAFT" && (
+                        <Badge variant="outline" className="text-xs">
+                          Draft
                         </Badge>
                       )}
                     </div>
@@ -86,11 +118,9 @@ export function RecentListings() {
                     <div className="text-lg font-bold text-gray-900">
                       ${listing.price}
                     </div>
-                    {listing.rimServiceAvailable && (
-                      <div className="text-xs text-gray-500">
-                        +${listing.rimServicePrice} rim service
-                      </div>
-                    )}
+                    <div className="text-xs text-gray-500">
+                      {listing.brand} {listing.size}
+                    </div>
                   </div>
                 </div>
 
@@ -102,7 +132,7 @@ export function RecentListings() {
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {new Date(listing.dateUploaded).toLocaleDateString()}
+                    {new Date(listing.createdAt).toLocaleDateString()}
                   </div>
                 </div>
               </div>
@@ -121,7 +151,7 @@ export function RecentListings() {
                 Manage all your tire listings and track performance
               </CardDescription>
             </div>
-            <Button asChild variant="outline" size="sm" className="btn-primary">
+            <Button asChild size="sm" className="btn-primary">
               <Link href="/dashboard/listings" className="flex items-center gap-2">
                 View All
                 <ArrowRight className="h-3 w-3" />

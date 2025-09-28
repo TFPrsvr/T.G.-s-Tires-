@@ -95,7 +95,6 @@ function PaymentSuccessContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button
               asChild
-              variant="outline"
               className="btn-primary"
             >
               <Link href="/" className="flex items-center gap-2">

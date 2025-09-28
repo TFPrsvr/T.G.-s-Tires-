@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { DashboardShell } from "@/components/features/dashboard/dashboard-shell";
 import { DashboardHeader } from "@/components/features/dashboard/dashboard-header";
@@ -11,13 +11,32 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Upload, Plus, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-export default function NewListingPage() {
+interface TireListing {
+  id: string;
+  title: string;
+  description: string;
+  brand: string;
+  model?: string;
+  size: string;
+  treadDepth: number;
+  condition: string;
+  quantity: number;
+  price: number;
+  rimServiceAvailable: boolean;
+  rimServicePrice?: number;
+  location?: string;
+  contactInfo?: string;
+  status: string;
+}
+
+export default function EditListingPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -33,6 +52,43 @@ export default function NewListingPage() {
     location: "",
     contactInfo: "",
   });
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        const response = await fetch(`/api/listings/${params.id}`);
+        if (response.ok) {
+          const listing: TireListing = await response.json();
+          setFormData({
+            title: listing.title,
+            description: listing.description,
+            brand: listing.brand,
+            model: listing.model || "",
+            size: listing.size,
+            treadDepth: listing.treadDepth.toString(),
+            condition: listing.condition.toLowerCase().replace('_', '-'),
+            quantity: listing.quantity.toString(),
+            price: listing.price.toString(),
+            rimServiceAvailable: listing.rimServiceAvailable,
+            rimServicePrice: listing.rimServicePrice?.toString() || "",
+            location: listing.location || "",
+            contactInfo: listing.contactInfo || "",
+          });
+        } else {
+          toast.error("Failed to load listing");
+          router.push("/dashboard/listings");
+        }
+      } catch (error) {
+        console.error("Error fetching listing:", error);
+        toast.error("Failed to load listing");
+        router.push("/dashboard/listings");
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    fetchListing();
+  }, [params.id, router]);
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
@@ -69,8 +125,8 @@ export default function NewListingPage() {
         contactInfo: formData.contactInfo || undefined,
       };
 
-      const response = await fetch('/api/listings', {
-        method: 'POST',
+      const response = await fetch(`/api/listings/${params.id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -80,25 +136,35 @@ export default function NewListingPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to create listing');
+        throw new Error(result.error || 'Failed to update listing');
       }
 
-      toast.success("Tire listing created successfully!");
+      toast.success("Tire listing updated successfully!");
       router.push('/dashboard/listings');
 
     } catch (error) {
-      console.error('Error creating listing:', error);
-      toast.error(error instanceof Error ? error.message : "Failed to create listing");
+      console.error('Error updating listing:', error);
+      toast.error(error instanceof Error ? error.message : "Failed to update listing");
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isFetching) {
+    return (
+      <DashboardShell>
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      </DashboardShell>
+    );
+  }
+
   return (
     <DashboardShell>
       <DashboardHeader
-        heading="Add New Tire Listing"
-        text="Create a new tire listing with detailed specifications."
+        heading="Edit Tire Listing"
+        text="Update your tire listing with new information."
       >
         <Button asChild className="btn-primary">
           <Link href="/dashboard/listings">
@@ -114,7 +180,7 @@ export default function NewListingPage() {
             <CardHeader>
               <CardTitle>Tire Details</CardTitle>
               <CardDescription>
-                Provide detailed information about your tire listing.
+                Update the information for your tire listing.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -312,23 +378,6 @@ export default function NewListingPage() {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">Photos</h3>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                  <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                  <p className="mt-2 text-sm text-gray-600">
-                    Click to upload tire photos or drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    PNG, JPG up to 10MB each (max 6 photos)
-                  </p>
-                  <Button type="button" className="btn-primary mt-4">
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add Photos (Coming Soon)
-                  </Button>
-                </div>
-              </div>
-
               <div className="flex gap-4 pt-6">
                 <Button
                   type="submit"
@@ -338,10 +387,10 @@ export default function NewListingPage() {
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating...
+                      Updating...
                     </>
                   ) : (
-                    'Create Listing'
+                    'Update Listing'
                   )}
                 </Button>
                 <Button asChild className="btn-primary">

@@ -66,9 +66,9 @@ function YardSaleItemCard({ item, onEdit, onDelete, onToggleActive }: YardSaleIt
 
           <div className="relative">
             <Button
-              variant="ghost"
               size="sm"
               onClick={() => setShowActions(!showActions)}
+              className="btn-primary"
             >
               <MoreHorizontal className="h-4 w-4" />
             </Button>
@@ -76,9 +76,8 @@ function YardSaleItemCard({ item, onEdit, onDelete, onToggleActive }: YardSaleIt
             {showActions && (
               <div className="absolute right-0 top-full mt-1 bg-white border rounded-lg shadow-lg p-1 z-10">
                 <Button
-                  variant="ghost"
                   size="sm"
-                  className="w-full justify-start"
+                  className="btn-primary w-full justify-start"
                   onClick={() => {
                     onEdit(item);
                     setShowActions(false);
@@ -88,9 +87,8 @@ function YardSaleItemCard({ item, onEdit, onDelete, onToggleActive }: YardSaleIt
                   Edit
                 </Button>
                 <Button
-                  variant="ghost"
                   size="sm"
-                  className="w-full justify-start"
+                  className="btn-primary w-full justify-start"
                   onClick={() => {
                     onToggleActive(item.id, !item.isActive);
                     setShowActions(false);
@@ -100,9 +98,8 @@ function YardSaleItemCard({ item, onEdit, onDelete, onToggleActive }: YardSaleIt
                   {item.isActive ? 'Deactivate' : 'Activate'}
                 </Button>
                 <Button
-                  variant="ghost"
                   size="sm"
-                  className="w-full justify-start text-red-600 hover:text-red-700"
+                  className="btn-primary w-full justify-start text-red-600 hover:text-red-700"
                   onClick={() => {
                     onDelete(item.id);
                     setShowActions(false);

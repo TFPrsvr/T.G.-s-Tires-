@@ -283,17 +283,17 @@ export function MessagingDashboard() {
               </div>
               <div className="flex gap-2">
                 <Button
-                  variant="outline"
                   size="sm"
                   onClick={() => updateConversationStatus(selectedConversation.id, 'close')}
+                  className="btn-primary"
                 >
                   <X className="h-4 w-4 mr-1" />
                   Close
                 </Button>
                 <Button
-                  variant="outline"
                   size="sm"
                   onClick={() => updateConversationStatus(selectedConversation.id, 'archive')}
+                  className="btn-primary"
                 >
                   <Archive className="h-4 w-4 mr-1" />
                   Archive

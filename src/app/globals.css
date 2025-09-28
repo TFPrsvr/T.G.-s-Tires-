@@ -227,13 +227,30 @@
 }
 
 button:focus,
-a:focus,
 input:focus,
 select:focus,
 textarea:focus {
   outline: 2px solid #0066cc;
   outline-offset: 2px;
   box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.2);
+}
+
+/* More subtle focus styling for navigation links */
+nav a:focus,
+header a:focus,
+footer a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  border-radius: 6px;
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Even more subtle for mobile nav links */
+.mobile-nav a:focus {
+  outline: none;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -337,4 +354,52 @@ a.btn-gradient-primary,
   align-items: center !important;
   justify-content: center !important;
   margin: 0 !important;
+}
+
+/* Custom rectangular toggle switches for notification preferences */
+[data-state] {
+  --switch-width: 50px;
+  --switch-height: 26px;
+  --thumb-size: 20px;
+  --thumb-offset: 3px;
+}
+
+button[role="switch"] {
+  width: var(--switch-width) !important;
+  height: var(--switch-height) !important;
+  border-radius: 15px !important;
+  background-color: #e2e8f0 !important;
+  border: none !important;
+  position: relative !important;
+  transition: all 0.2s ease-in-out !important;
+  cursor: pointer !important;
+  min-width: var(--switch-width) !important;
+  min-height: var(--switch-height) !important;
+}
+
+button[role="switch"]:focus {
+  outline: 2px solid #0066cc !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.2) !important;
+}
+
+button[role="switch"][data-state="checked"] {
+  background-color: #3b82f6 !important;
+}
+
+button[role="switch"] span[data-state] {
+  width: var(--thumb-size) !important;
+  height: var(--thumb-size) !important;
+  border-radius: 50% !important;
+  background-color: #ffffff !important;
+  position: absolute !important;
+  top: var(--thumb-offset) !important;
+  left: var(--thumb-offset) !important;
+  transition: transform 0.2s ease-in-out !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  pointer-events: none !important;
+}
+
+button[role="switch"][data-state="checked"] span[data-state] {
+  transform: translateX(24px) !important;
 }

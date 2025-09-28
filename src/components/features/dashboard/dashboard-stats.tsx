@@ -1,39 +1,88 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Car, ShoppingBag, DollarSign, Eye, TrendingUp } from "lucide-react";
+import { Car, ShoppingBag, DollarSign, Eye, TrendingUp, Loader2 } from "lucide-react";
+
+interface DashboardStatsData {
+  totalListings: { value: number; change: string; trend: string };
+  activeListings: { value: number; change: string; trend: string };
+  totalViews: { value: number; change: string; trend: string };
+  soldItems: { value: number; change: string; trend: string };
+  yardSaleItems: { value: number; change: string; trend: string };
+}
 
 export function DashboardStats() {
-  // In production, these would be fetched from your database
-  const stats = [
+  const [stats, setStats] = useState<DashboardStatsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // First sync user to ensure they exist in database
+        await fetch('/api/auth/sync-user', { method: 'POST' });
+
+        // Then fetch stats
+        const response = await fetch('/api/dashboard/stats');
+        if (response.ok) {
+          const data = await response.json();
+          setStats(data.stats);
+        }
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-4 gap-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Card key={i} className="product-card">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-center h-20">
+                <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  const dashboardStats = [
     {
       title: "Active Tire Listings",
-      value: "23",
-      change: "+12% from last month",
+      value: stats?.activeListings?.value?.toString() || "0",
+      change: stats?.activeListings?.change || "No change",
       icon: Car,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
     },
     {
       title: "Yard Sale Items",
-      value: "8",
-      change: "+4 new this week",
+      value: stats?.yardSaleItems?.value?.toString() || "0",
+      change: stats?.yardSaleItems?.change || "No change",
       icon: ShoppingBag,
       color: "text-green-600",
       bgColor: "bg-green-50",
     },
     {
       title: "Total Views",
-      value: "1,247",
-      change: "+18% this week",
+      value: stats?.totalViews?.value?.toLocaleString() || "0",
+      change: stats?.totalViews?.change || "No change",
       icon: Eye,
       color: "text-purple-600",
       bgColor: "bg-purple-50",
     },
     {
-      title: "Revenue",
-      value: "$2,450",
-      change: "+$340 this month",
+      title: "Items Sold",
+      value: stats?.soldItems?.value?.toString() || "0",
+      change: stats?.soldItems?.change || "No change",
       icon: DollarSign,
       color: "text-emerald-600",
       bgColor: "bg-emerald-50",
@@ -41,8 +90,8 @@ export function DashboardStats() {
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      {stats.map((stat, index) => {
+    <div className="grid grid-cols-4 gap-4">
+      {dashboardStats.map((stat, index) => {
         const IconComponent = stat.icon;
 
         return (

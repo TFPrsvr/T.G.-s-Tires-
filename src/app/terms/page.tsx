@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
                 T.G.'s Tires
               </Link>
             </div>
-            <Button asChild variant="outline">
+            <Button asChild className="btn-primary">
               <Link href="/">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Home

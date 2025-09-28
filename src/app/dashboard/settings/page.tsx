@@ -114,7 +114,8 @@ export default async function SettingsPage() {
                 id="business-description"
                 placeholder="Professional tire sales and mounting services..."
                 defaultValue="Professional tire sales and mounting services with over 20 years of experience. We specialize in quality used tires and expert rim mounting."
-                rows={3}
+                rows={4}
+                className="w-full resize-none"
               />
             </div>
 
@@ -243,7 +244,7 @@ export default async function SettingsPage() {
             </div>
 
             <div className="pt-4">
-              <Button variant="outline">
+              <Button className="btn-primary">
                 <CreditCard className="mr-2 h-4 w-4" />
                 Manage Payment Methods
               </Button>
@@ -292,11 +293,11 @@ export default async function SettingsPage() {
             </div>
 
             <div className="pt-4 space-y-2">
-              <Button variant="outline">
+              <Button className="btn-primary">
                 <Shield className="mr-2 h-4 w-4" />
                 Change Password
               </Button>
-              <Button variant="outline">
+              <Button className="btn-primary">
                 <Globe className="mr-2 h-4 w-4" />
                 Download My Data
               </Button>
@@ -335,7 +336,7 @@ export default async function SettingsPage() {
                   Reset all settings to default values.
                 </p>
               </div>
-              <Button variant="outline">
+              <Button className="btn-primary">
                 Reset Settings
               </Button>
             </div>

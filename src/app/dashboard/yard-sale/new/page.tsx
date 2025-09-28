@@ -25,7 +25,7 @@ export default async function NewYardSaleItemPage() {
         heading="Add New Yard Sale Item"
         text="List items for your next yard sale event."
       >
-        <Button asChild variant="outline">
+        <Button asChild className="btn-primary">
           <Link href="/dashboard/yard-sale">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Yard Sale
@@ -179,7 +179,7 @@ export default async function NewYardSaleItemPage() {
                 <p className="text-xs text-gray-500">
                   PNG, JPG up to 10MB each (max 6 photos)
                 </p>
-                <Button variant="outline" className="mt-4">
+                <Button className="btn-primary mt-4">
                   <Plus className="mr-2 h-4 w-4" />
                   Add Photos
                 </Button>
@@ -220,7 +220,7 @@ export default async function NewYardSaleItemPage() {
               <Button type="submit" className="btn-gradient-primary">
                 Add Item to Sale
               </Button>
-              <Button asChild variant="outline">
+              <Button asChild className="btn-primary">
                 <Link href="/dashboard/yard-sale">
                   Cancel
                 </Link>

@@ -127,7 +127,6 @@ function YardSaleItemCard({ item, onViewDetails, onPurchase }: YardSaleItemCardP
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-2">
           <Button
-            variant="outline"
             size="sm"
             onClick={() => onViewDetails(item)}
             className="btn-primary"
@@ -253,11 +252,11 @@ function YardSaleItemDetailsModal({ item, open, onClose }: {
                 <span>{item.saleAddress}</span>
               </div>
               <div className="flex gap-2 mt-3">
-                <Button size="sm" variant="outline" className="btn-primary">
+                <Button size="sm" className="btn-primary">
                   <Phone className="h-4 w-4 mr-1" />
                   Call
                 </Button>
-                <Button size="sm" variant="outline" className="btn-primary">
+                <Button size="sm" className="btn-primary">
                   <MessageSquare className="h-4 w-4 mr-1" />
                   Message
                 </Button>

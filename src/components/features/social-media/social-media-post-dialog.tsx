@@ -326,7 +326,7 @@ export function SocialMediaPostDialog({
 
         {/* Action Buttons */}
         <div className="flex justify-end gap-3 pt-6 border-t">
-          <Button variant="outline" onClick={onClose}>
+          <Button className="btn-primary" onClick={onClose}>
             Cancel
           </Button>
           <Button

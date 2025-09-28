@@ -109,7 +109,7 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
       {/* Mobile Navigation */}
       <div className="md:hidden bg-white border-b">
         <div className="container px-4">
-          <div className="grid grid-cols-4 gap-2 py-2">
+          <div className="mobile-nav grid grid-cols-4 gap-2 py-2">
             <Link
               href="/dashboard"
               className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -156,17 +156,15 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
         <div className="container px-4 py-3">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
             <div className="text-sm text-gray-600">
-              © 2024 T.G.'s Tires. Professional tire marketplace.
+              © 2024 T.G.'s Tires. Professional Tire Marketplace.
             </div>
-            <div className="flex items-center space-x-4 text-sm text-gray-600">
+            <div className="flex items-center space-x-6 text-sm text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">
                 Privacy
               </Link>
-              <Separator orientation="vertical" className="h-4" />
               <Link href="/terms" className="hover:text-blue-600 transition-colors">
                 Terms
               </Link>
-              <Separator orientation="vertical" className="h-4" />
               <Link href="/contact" className="hover:text-blue-600 transition-colors">
                 Contact
               </Link>

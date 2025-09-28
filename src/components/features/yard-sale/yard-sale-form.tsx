@@ -331,7 +331,7 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
                 min={new Date().toISOString().split('T')[0]}
                 className="flex-1"
               />
-              <Button type="button" onClick={addAvailableDate} variant="outline">
+              <Button type="button" onClick={addAvailableDate} className="btn-primary">
                 <CalendarIcon className="h-4 w-4 mr-2" />
                 Add Date
               </Button>
@@ -344,9 +344,8 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
                     {date.toLocaleDateString()}
                     <Button
                       type="button"
-                      variant="ghost"
                       size="sm"
-                      className="h-auto p-0 ml-1 hover:bg-transparent"
+                      className="btn-primary h-auto p-0 ml-1 hover:bg-transparent"
                       onClick={() => removeDate(index)}
                     >
                       <X className="h-3 w-3" />
@@ -384,7 +383,7 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
                     className="hidden"
                   />
                 </div>
-                <Button type="button" variant="outline" className="mt-2" asChild>
+                <Button type="button" className="btn-primary mt-2" asChild>
                   <Label htmlFor="images" className="cursor-pointer">
                     <Upload className="h-4 w-4 mr-2" />
                     Choose Files
@@ -404,9 +403,8 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
                     />
                     <Button
                       type="button"
-                      variant="destructive"
                       size="sm"
-                      className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="btn-gradient-primary absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={() => removeImage(index)}
                     >
                       <X className="h-3 w-3" />

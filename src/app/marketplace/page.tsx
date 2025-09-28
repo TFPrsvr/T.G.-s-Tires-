@@ -1,116 +1,85 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Filter, Car, MapPin, Eye, DollarSign, Star, Heart } from "lucide-react";
+import { Search, Filter, Car, MapPin, Eye, Heart, Loader2 } from "lucide-react";
 import Link from "next/link";
 
-// Mock data - in production, this would come from your database
-const mockListings = [
-  {
-    id: "1",
-    title: "Michelin All-Season Tires - 225/60R16",
-    price: 320,
-    condition: "Good",
-    views: 45,
-    location: "Springfield, IL",
-    seller: "T.G.'s Tires",
-    rating: 4.8,
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: true,
-    rimServicePrice: 40,
-    datePosted: "2024-03-15",
-    treadDepth: 8,
-    brand: "Michelin",
-    size: "225/60R16",
-  },
-  {
-    id: "2",
-    title: "Bridgestone Winter Tires - 205/55R16",
-    price: 280,
-    condition: "Like New",
-    views: 32,
-    location: "Chicago, IL",
-    seller: "Mike's Auto Shop",
-    rating: 4.5,
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: false,
-    datePosted: "2024-03-14",
-    treadDepth: 10,
-    brand: "Bridgestone",
-    size: "205/55R16",
-  },
-  {
-    id: "3",
-    title: "Goodyear Performance Tires - 245/45R17",
-    price: 450,
-    condition: "Fair",
-    views: 28,
-    location: "Peoria, IL",
-    seller: "Performance Plus",
-    rating: 4.2,
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: true,
-    rimServicePrice: 50,
-    datePosted: "2024-03-13",
-    treadDepth: 6,
-    brand: "Goodyear",
-    size: "245/45R17",
-  },
-  {
-    id: "4",
-    title: "Continental Summer Tires - 195/65R15",
-    price: 240,
-    condition: "Good",
-    views: 15,
-    location: "Rockford, IL",
-    seller: "City Tire Center",
-    rating: 4.6,
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: false,
-    datePosted: "2024-03-12",
-    treadDepth: 7,
-    brand: "Continental",
-    size: "195/65R15",
-  },
-  {
-    id: "5",
-    title: "Pirelli All-Terrain Tires - 265/70R16",
-    price: 520,
-    condition: "Like New",
-    views: 67,
-    location: "Decatur, IL",
-    seller: "Off-Road Specialists",
-    rating: 4.9,
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: true,
-    rimServicePrice: 60,
-    datePosted: "2024-03-11",
-    treadDepth: 11,
-    brand: "Pirelli",
-    size: "265/70R16",
-  },
-  {
-    id: "6",
-    title: "BF Goodrich Mud-Terrain - 33x12.50R15",
-    price: 680,
-    condition: "Good",
-    views: 89,
-    location: "Bloomington, IL",
-    seller: "Truck & SUV Pros",
-    rating: 4.4,
-    images: ["/api/placeholder/300/200"],
-    rimServiceAvailable: true,
-    rimServicePrice: 75,
-    datePosted: "2024-03-10",
-    treadDepth: 9,
-    brand: "BF Goodrich",
-    size: "33x12.50R15",
-  },
-];
+interface TireListing {
+  id: string;
+  title: string;
+  brand: string;
+  model?: string;
+  size: string;
+  condition: string;
+  price: number;
+  views: number;
+  treadDepth: number;
+  quantity: number;
+  rimServiceAvailable: boolean;
+  rimServicePrice?: number;
+  location?: string;
+  contactInfo?: string;
+  status: string;
+  createdAt: string;
+  publishedAt: string | null;
+  user: {
+    firstName: string;
+    lastName: string;
+  };
+}
 
 export default function MarketplacePage() {
+  const [listings, setListings] = useState<TireListing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const params = new URLSearchParams();
+
+        // Add published filter to only show published listings
+        params.append('status', 'PUBLISHED');
+
+        // Add search and filter parameters
+        if (searchTerm) params.append('search', searchTerm);
+        if (selectedSize) params.append('size', selectedSize);
+        if (selectedLocation) params.append('location', selectedLocation);
+
+        const response = await fetch(`/api/listings?${params.toString()}`);
+        if (response.ok) {
+          const data = await response.json();
+          setListings(data.listings || []);
+        }
+      } catch (error) {
+        console.error('Error fetching marketplace listings:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, [searchTerm, selectedSize, selectedLocation]);
+
+  const handleSearch = () => {
+    // Trigger re-fetch with current filters by updating searchTerm state
+    // This will cause useEffect to re-run with the current search term
+  };
+
+  const formatCondition = (condition: string) => {
+    return condition.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+  };
+
+  const getSellerName = (user: TireListing['user']) => {
+    return `${user.firstName} ${user.lastName}`.trim() || 'Anonymous Seller';
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -120,11 +89,11 @@ export default function MarketplacePage() {
             <div className="flex items-center space-x-2">
               <Car className="h-8 w-8 text-blue-600" />
               <Link href="/" className="text-2xl font-bold text-gray-900">
-                T.G.'s Tires Marketplace
+                T.G.&apos;s Tires Marketplace
               </Link>
             </div>
             <div className="flex items-center gap-4">
-              <Button asChild variant="outline">
+              <Button asChild className="btn-primary">
                 <Link href="/sign-in">Sign In</Link>
               </Button>
               <Button asChild className="btn-gradient-primary">
@@ -150,15 +119,19 @@ export default function MarketplacePage() {
                   <Input
                     placeholder="Search by brand, size, or tire type..."
                     className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   />
                 </div>
               </div>
 
-              <Select>
+              <Select value={selectedSize} onValueChange={setSelectedSize}>
                 <SelectTrigger>
                   <SelectValue placeholder="Tire Size" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="">All Sizes</SelectItem>
                   <SelectItem value="195/65R15">195/65R15</SelectItem>
                   <SelectItem value="205/55R16">205/55R16</SelectItem>
                   <SelectItem value="225/60R16">225/60R16</SelectItem>
@@ -167,26 +140,26 @@ export default function MarketplacePage() {
                 </SelectContent>
               </Select>
 
-              <Select>
+              <Select value={selectedLocation} onValueChange={setSelectedLocation}>
                 <SelectTrigger>
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Locations</SelectItem>
-                  <SelectItem value="springfield">Springfield, IL</SelectItem>
-                  <SelectItem value="chicago">Chicago, IL</SelectItem>
-                  <SelectItem value="peoria">Peoria, IL</SelectItem>
-                  <SelectItem value="rockford">Rockford, IL</SelectItem>
+                  <SelectItem value="">All Locations</SelectItem>
+                  <SelectItem value="Springfield">Springfield, IL</SelectItem>
+                  <SelectItem value="Chicago">Chicago, IL</SelectItem>
+                  <SelectItem value="Peoria">Peoria, IL</SelectItem>
+                  <SelectItem value="Rockford">Rockford, IL</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="flex gap-4 mt-4">
-              <Button className="btn-gradient-primary">
+              <Button onClick={handleSearch} className="btn-gradient-primary">
                 <Search className="mr-2 h-4 w-4" />
                 Search Tires
               </Button>
-              <Button variant="outline">
+              <Button className="btn-primary">
                 <Filter className="mr-2 h-4 w-4" />
                 More Filters
               </Button>
@@ -196,86 +169,127 @@ export default function MarketplacePage() {
 
         {/* Results Summary */}
         <div className="mb-6">
-          <p className="text-gray-600">
-            Showing {mockListings.length} tire listings in your area
-          </p>
+          {isLoading ? (
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <p className="text-gray-600">Loading tire listings...</p>
+            </div>
+          ) : (
+            <p className="text-gray-600">
+              Showing {listings.length} tire listing{listings.length !== 1 ? 's' : ''} in your area
+            </p>
+          )}
         </div>
 
         {/* Listings Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {mockListings.map((listing) => (
-            <Card key={listing.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-              <CardHeader className="p-0">
-                <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-t-lg flex items-center justify-center">
-                  <span className="text-gray-500">Tire Image</span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                  >
-                    <Heart className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardHeader>
-
-              <CardContent className="p-4">
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="font-semibold text-lg line-clamp-2">
-                      {listing.title}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Badge variant="secondary">{listing.condition}</Badge>
-                      <span className="text-sm text-gray-600">{listing.treadDepth}/32" tread</span>
-                    </div>
+          {isLoading ? (
+            // Loading state
+            Array.from({ length: 6 }).map((_, i) => (
+              <Card key={i} className="animate-pulse">
+                <CardHeader className="p-0">
+                  <div className="h-48 bg-gray-200 rounded-t-lg"></div>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <div className="space-y-3">
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                    <div className="h-6 bg-gray-200 rounded w-1/3"></div>
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-2xl font-bold text-green-600">
-                        ${listing.price}
-                      </div>
-                      {listing.rimServiceAvailable && (
-                        <div className="text-xs text-gray-500">
-                          +${listing.rimServicePrice} rim service
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="text-right">
-                      <div className="flex items-center text-sm text-gray-600">
-                        <Star className="h-3 w-3 text-yellow-400 mr-1" />
-                        {listing.rating}
-                      </div>
-                      <div className="text-xs text-gray-500">{listing.seller}</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-sm text-gray-600">
-                    <div className="flex items-center">
-                      <MapPin className="h-3 w-3 mr-1" />
-                      {listing.location}
-                    </div>
-                    <div className="flex items-center">
-                      <Eye className="h-3 w-3 mr-1" />
-                      {listing.views} views
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <Button className="w-full btn-gradient-primary">
-                      View Details
+                </CardContent>
+              </Card>
+            ))
+          ) : listings.length === 0 ? (
+            // Empty state
+            <div className="col-span-full text-center py-12">
+              <Car className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No tire listings found</h3>
+              <p className="text-gray-600 mb-6">
+                {searchTerm || selectedSize || selectedLocation
+                  ? "Try adjusting your search filters to find more results."
+                  : "Be the first to list tires in the marketplace!"}
+              </p>
+              <Button asChild className="btn-gradient-primary">
+                <Link href="/sign-up">List Your Tires</Link>
+              </Button>
+            </div>
+          ) : (
+            // Listings
+            listings.map((listing) => (
+              <Card key={listing.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                <CardHeader className="p-0">
+                  <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-t-lg flex items-center justify-center">
+                    <span className="text-gray-500">Tire Image</span>
+                    <Button
+                      className="btn-primary absolute top-2 right-2 bg-white/80 hover:bg-white"
+                      size="sm"
+                    >
+                      <Heart className="h-4 w-4" />
                     </Button>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+
+                <CardContent className="p-4">
+                  <div className="space-y-3">
+                    <div>
+                      <h3 className="font-semibold text-lg line-clamp-2">
+                        {listing.title}
+                      </h3>
+                      <div className="flex items-center gap-2 mt-1">
+                        <Badge variant="secondary">{formatCondition(listing.condition)}</Badge>
+                        <span className="text-sm text-gray-600">{listing.treadDepth}/32&quot; tread</span>
+                        {listing.quantity > 1 && (
+                          <span className="text-sm text-gray-600">({listing.quantity} available)</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-2xl font-bold text-green-600">
+                          ${listing.price}
+                        </div>
+                        {listing.rimServiceAvailable && listing.rimServicePrice && (
+                          <div className="text-xs text-gray-500">
+                            +${listing.rimServicePrice} rim service
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="text-right">
+                        <div className="text-xs text-gray-500">{getSellerName(listing.user)}</div>
+                        <div className="text-xs text-gray-400">
+                          {listing.brand} {listing.size}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm text-gray-600">
+                      <div className="flex items-center">
+                        <MapPin className="h-3 w-3 mr-1" />
+                        {listing.location || 'Location not specified'}
+                      </div>
+                      <div className="flex items-center">
+                        <Eye className="h-3 w-3 mr-1" />
+                        {listing.views} views
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <Button className="w-full btn-gradient-primary">
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
         </div>
 
         {/* Load More */}
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
+          <Button className="btn-primary" size="lg">
             Load More Listings
           </Button>
         </div>
@@ -286,7 +300,7 @@ export default function MarketplacePage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-600 mb-4 md:mb-0">
-              © 2024 T.G.'s Tires. Professional tire marketplace.
+              © 2024 T.G.&apos;s Tires. Professional tire marketplace.
             </div>
             <div className="flex space-x-6 text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>

@@ -161,7 +161,7 @@ export function CustomerContactForm({
             Response time is typically within 1-2 business hours during normal business hours.
           </p>
           <Button
-            className="mt-6 btn-primary"
+            className="btn-primary mt-6"
             onClick={() => {
               setSent(false);
               setFormData({

@@ -355,7 +355,7 @@ export function PaymentOptions({ item, itemType }: PaymentOptionsProps) {
                         />
                         <Button
                           onClick={copyLinkToClipboard}
-                          variant="outline"
+                          className="btn-primary"
                           size="sm"
                         >
                           Copy
@@ -372,7 +372,6 @@ export function PaymentOptions({ item, itemType }: PaymentOptionsProps) {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <Button
                           onClick={sendLinkViaEmail}
-                          variant="outline"
                           className="btn-primary"
                         >
                           <DollarSign className="h-4 w-4 mr-2" />
@@ -381,7 +380,6 @@ export function PaymentOptions({ item, itemType }: PaymentOptionsProps) {
 
                         <Button
                           onClick={sendLinkViaSMS}
-                          variant="outline"
                           disabled={!linkData.customerPhone?.trim()}
                           className="btn-primary"
                         >
@@ -406,9 +404,8 @@ export function PaymentOptions({ item, itemType }: PaymentOptionsProps) {
                           includeRimService: false,
                         });
                       }}
-                      variant="outline"
+                      className="btn-primary w-full"
                       size="sm"
-                      className="w-full"
                     >
                       Generate New Link
                     </Button>

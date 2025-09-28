@@ -14,27 +14,29 @@ export default async function DashboardPage() {
   }
 
   return (
-    <DashboardShell>
-      <DashboardHeader
-        heading="T.G.'s Tires Dashboard"
-        text="Manage your tire listings, yard sale items, and business operations."
-      />
+    <div className="min-h-screen p-8">
+      <DashboardShell>
+        <DashboardHeader
+          heading="T.G.'s Tires Dashboard"
+          text="Manage your tire listings, yard sale items, and business operations."
+        />
 
-      <div className="grid gap-8">
-        <DashboardStats />
+        <div className="grid gap-8">
+          <DashboardStats />
 
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Quick Actions</h2>
-            <QuickActions />
-          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold">Quick Actions</h2>
+              <QuickActions />
+            </div>
 
-          <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Recent Listings</h2>
-            <RecentListings />
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold">Recent Listings</h2>
+              <RecentListings />
+            </div>
           </div>
         </div>
-      </div>
-    </DashboardShell>
+      </DashboardShell>
+    </div>
   );
 }

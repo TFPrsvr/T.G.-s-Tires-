@@ -24,7 +24,7 @@ export default async function InviteTeamMemberPage() {
         heading="Invite Team Member"
         text="Send an invitation to join your tire marketplace team."
       >
-        <Button asChild variant="outline">
+        <Button asChild className="btn-primary">
           <Link href="/dashboard/team">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Team
@@ -101,7 +101,7 @@ export default async function InviteTeamMemberPage() {
                 <Send className="mr-2 h-4 w-4" />
                 Send Invitation
               </Button>
-              <Button asChild variant="outline">
+              <Button asChild className="btn-primary">
                 <Link href="/dashboard/team">
                   Cancel
                 </Link>

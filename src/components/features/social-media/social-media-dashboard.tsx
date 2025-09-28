@@ -28,7 +28,8 @@ import {
   Eye,
   ThumbsUp,
   MessageSquare as MessageIcon,
-  TrendingUp
+  TrendingUp,
+  Users
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -202,7 +203,7 @@ function AddAccountDialog({ onAccountAdded }: { onAccountAdded: () => void }) {
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+            <Button type="button" className="btn-primary" onClick={() => setOpen(false)}>
               Cancel
             </Button>
             <Button
@@ -359,253 +360,444 @@ export function SocialMediaDashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <Share2 className="h-6 w-6" />
+          <h1 className="text-3xl font-bold flex items-center gap-3">
+            <Share2 className="h-8 w-8 text-blue-600" />
             Social Media Dashboard
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 mt-2 text-lg">
             Manage your social media accounts and automated posting
           </p>
         </div>
-        <AddAccountDialog onAccountAdded={loadData} />
       </div>
 
-      <Tabs defaultValue="accounts" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="accounts">Accounts</TabsTrigger>
-          <TabsTrigger value="posts">Post History</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="settings">Auto-Post Settings</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="accounts" className="space-y-4">
-          {accounts.length === 0 ? (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <Share2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  No social media accounts connected
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Connect your social media accounts to enable automated posting
-                </p>
-                <AddAccountDialog onAccountAdded={loadData} />
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {accounts.map(account => (
-                <Card key={account.platform}>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="flex items-center gap-2">
-                        <PlatformIcon platform={account.platform} />
-                        <span className="font-medium">{account.platform}</span>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRemoveAccount(account.platform)}
-                        className="text-red-600 hover:text-red-700"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-
-                    <p className="text-sm text-gray-600 mb-3">
-                      @{account.accountId}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        {account.isActive && !account.tokenExpired ? (
-                          <Badge className="bg-green-100 text-green-800" variant="secondary">
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Active
-                          </Badge>
-                        ) : (
-                          <Badge className="bg-red-100 text-red-800" variant="secondary">
-                            <AlertCircle className="h-3 w-3 mr-1" />
-                            {account.tokenExpired ? 'Token Expired' : 'Inactive'}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-
-                    {account.expiresAt && (
-                      <p className="text-xs text-gray-500 mt-2">
-                        Expires: {new Date(account.expiresAt).toLocaleDateString()}
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
+      {/* Quick Actions Header */}
+      <div className="grid gap-6 md:grid-cols-4">
+        <Card className="border-blue-200 bg-blue-50">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-blue-800">
+              <Users className="h-5 w-5" />
+              Connected Accounts
+            </CardTitle>
+            <CardDescription className="text-blue-600">
+              Manage your social media connections
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-blue-800 mb-3">
+              {accounts.length} Connected
             </div>
-          )}
-        </TabsContent>
+            <AddAccountDialog onAccountAdded={loadData} />
+          </CardContent>
+        </Card>
 
-        <TabsContent value="posts" className="space-y-4">
-          {posts.length === 0 ? (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <MessageIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  No posts yet
-                </h3>
-                <p className="text-gray-600">
-                  Your social media posts will appear here once you start posting
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {posts.map(post => (
-                <PostHistoryCard key={post.id} post={post} />
-              ))}
+        <Card className="border-green-200 bg-green-50">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-green-800">
+              <MessageIcon className="h-5 w-5" />
+              Post History
+            </CardTitle>
+            <CardDescription className="text-green-600">
+              View all your social media posts
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-800 mb-3">
+              {posts.length} Posts
             </div>
-          )}
-        </TabsContent>
+            <Button
+              className="btn-primary w-full"
+              onClick={() => document.getElementById('post-history')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Eye className="h-4 w-4 mr-2" />
+              View Posts
+            </Button>
+          </CardContent>
+        </Card>
 
-        <TabsContent value="analytics" className="space-y-6">
-          {analytics ? (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-2">
-                      <BarChart3 className="h-5 w-5 text-blue-600" />
-                      <span className="text-sm font-medium">Total Posts</span>
-                    </div>
-                    <p className="text-2xl font-bold mt-2">{analytics.totalPosts}</p>
-                  </CardContent>
-                </Card>
+        <Card className="border-purple-200 bg-purple-50">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <BarChart3 className="h-5 w-5" />
+              Analytics
+            </CardTitle>
+            <CardDescription className="text-purple-600">
+              Track your posting performance
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-purple-800 mb-3">
+              {analytics?.successfulPosts || 0} Success
+            </div>
+            <Button
+              className="btn-primary w-full"
+              onClick={() => document.getElementById('analytics')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <TrendingUp className="h-4 w-4 mr-2" />
+              View Analytics
+            </Button>
+          </CardContent>
+        </Card>
 
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
-                      <span className="text-sm font-medium">Successful</span>
-                    </div>
-                    <p className="text-2xl font-bold mt-2">{analytics.successfulPosts}</p>
-                  </CardContent>
-                </Card>
+        <Card className="border-orange-200 bg-orange-50">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <Settings className="h-5 w-5" />
+              Auto-Post Settings
+            </CardTitle>
+            <CardDescription className="text-orange-600">
+              Configure automatic posting
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-orange-800 mb-3">
+              {Object.values(autoPostSettings).filter(Boolean).length} Active
+            </div>
+            <Button
+              className="btn-primary w-full"
+              onClick={() => document.getElementById('settings')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Configure
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
 
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5 text-red-600" />
-                      <span className="text-sm font-medium">Failed</span>
-                    </div>
-                    <p className="text-2xl font-bold mt-2">{analytics.failedPosts}</p>
-                  </CardContent>
-                </Card>
+      {/* Connected Accounts Section */}
+      <section id="accounts" className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Users className="h-6 w-6 text-blue-600" />
+              Connected Accounts
+            </h2>
+            <p className="text-gray-600 mt-1">
+              Manage your social media platform connections
+            </p>
+          </div>
+          <AddAccountDialog onAccountAdded={loadData} />
+        </div>
 
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="h-5 w-5 text-purple-600" />
-                      <span className="text-sm font-medium">Success Rate</span>
-                    </div>
-                    <p className="text-2xl font-bold mt-2">
-                      {analytics.totalPosts > 0
-                        ? Math.round((analytics.successfulPosts / analytics.totalPosts) * 100)
-                        : 0}%
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Platform Breakdown</CardTitle>
-                  <CardDescription>
-                    Number of posts per platform in the last 30 days
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {Object.entries(analytics.platformBreakdown).map(([platform, count]) => (
-                      <div key={platform} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <PlatformIcon platform={platform} />
-                          <span className="font-medium">{platform}</span>
-                        </div>
-                        <Badge variant="outline">{count} posts</Badge>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          ) : (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  No analytics data available
-                </h3>
-                <p className="text-gray-600">
-                  Analytics will appear here once you start posting
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-
-        <TabsContent value="settings" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Automatic Posting Settings</CardTitle>
-              <CardDescription>
-                Enable automatic posting to social media platforms when you create new listings
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {[
-                { key: 'autoPostToFacebook', platform: 'FACEBOOK', label: 'Facebook' },
-                { key: 'autoPostToInstagram', platform: 'INSTAGRAM', label: 'Instagram' },
-                { key: 'autoPostToTwitter', platform: 'TWITTER', label: 'Twitter / X' },
-                { key: 'autoPostToTiktok', platform: 'TIKTOK', label: 'TikTok' },
-                { key: 'autoPostToSnapchat', platform: 'SNAPCHAT', label: 'Snapchat' },
-              ].map(({ key, platform, label }) => {
-                const hasAccount = accounts.some(acc => acc.platform === platform && acc.isActive);
-
-                return (
-                  <div key={key} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <PlatformIcon platform={platform} />
-                      <div>
-                        <span className="font-medium">{label}</span>
-                        {!hasAccount && (
-                          <p className="text-xs text-orange-600">Account required</p>
-                        )}
-                      </div>
-                    </div>
-                    <Switch
-                      checked={autoPostSettings[key as keyof typeof autoPostSettings]}
-                      onCheckedChange={(checked) => {
-                        if (checked && !hasAccount) {
-                          toast.error(`Please connect your ${label} account first`);
-                          return;
-                        }
-                        setAutoPostSettings(prev => ({
-                          ...prev,
-                          [key]: checked,
-                        }));
-                      }}
-                      disabled={!hasAccount}
-                    />
-                  </div>
-                );
-              })}
+        {accounts.length === 0 ? (
+          <Card className="border-blue-200">
+            <CardContent className="py-12 text-center">
+              <Share2 className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                No social media accounts connected
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Connect your social media accounts to enable automated posting
+              </p>
+              <AddAccountDialog onAccountAdded={loadData} />
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {accounts.map(account => (
+              <Card key={account.platform} className="border-l-4 border-l-blue-500">
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-center gap-3">
+                      <PlatformIcon platform={account.platform} className="h-6 w-6" />
+                      <span className="font-semibold text-lg">{account.platform}</span>
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={() => handleRemoveAccount(account.platform)}
+                      className="btn-primary text-red-600 hover:text-red-700"
+                      aria-label={`Remove ${account.platform} account`}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <p className="text-sm text-gray-600 mb-4 font-medium">
+                    @{account.accountId}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {account.isActive && !account.tokenExpired ? (
+                        <Badge className="bg-green-100 text-green-800" variant="secondary">
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          Active
+                        </Badge>
+                      ) : (
+                        <Badge className="bg-red-100 text-red-800" variant="secondary">
+                          <AlertCircle className="h-3 w-3 mr-1" />
+                          {account.tokenExpired ? 'Token Expired' : 'Inactive'}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+
+                  {account.expiresAt && (
+                    <p className="text-xs text-gray-500 mt-3">
+                      Expires: {new Date(account.expiresAt).toLocaleDateString()}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Post History Section */}
+      <section id="post-history" className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <MessageIcon className="h-6 w-6 text-green-600" />
+              Post History
+            </h2>
+            <p className="text-gray-600 mt-1">
+              View and manage all your social media posts
+            </p>
+          </div>
+          <Button className="btn-primary">
+            <Plus className="h-4 w-4 mr-2" />
+            Create New Post
+          </Button>
+        </div>
+
+        {posts.length === 0 ? (
+          <Card className="border-green-200">
+            <CardContent className="py-12 text-center">
+              <MessageIcon className="h-12 w-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                No posts yet
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Your social media posts will appear here once you start posting
+              </p>
+              <Button className="btn-gradient-primary">
+                <Plus className="h-4 w-4 mr-2" />
+                Create Your First Post
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map(post => (
+              <PostHistoryCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Analytics Section */}
+      <section id="analytics" className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <BarChart3 className="h-6 w-6 text-purple-600" />
+              Analytics & Performance
+            </h2>
+            <p className="text-gray-600 mt-1">
+              Track your social media posting performance and engagement
+            </p>
+          </div>
+          <Button className="btn-primary">
+            <TrendingUp className="h-4 w-4 mr-2" />
+            Export Report
+          </Button>
+        </div>
+
+        {analytics ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <Card className="border-l-4 border-l-blue-500">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <BarChart3 className="h-6 w-6 text-blue-600" />
+                    <span className="font-semibold">Total Posts</span>
+                  </div>
+                  <p className="text-3xl font-bold text-blue-600">{analytics.totalPosts}</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-green-500">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <CheckCircle className="h-6 w-6 text-green-600" />
+                    <span className="font-semibold">Successful</span>
+                  </div>
+                  <p className="text-3xl font-bold text-green-600">{analytics.successfulPosts}</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-red-500">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <AlertCircle className="h-6 w-6 text-red-600" />
+                    <span className="font-semibold">Failed</span>
+                  </div>
+                  <p className="text-3xl font-bold text-red-600">{analytics.failedPosts}</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <TrendingUp className="h-6 w-6 text-purple-600" />
+                    <span className="font-semibold">Success Rate</span>
+                  </div>
+                  <p className="text-3xl font-bold text-purple-600">
+                    {analytics.totalPosts > 0
+                      ? Math.round((analytics.successfulPosts / analytics.totalPosts) * 100)
+                      : 0}%
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="border-purple-200">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-purple-600" />
+                  Platform Breakdown
+                </CardTitle>
+                <CardDescription>
+                  Number of posts per platform in the last 30 days
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {Object.entries(analytics.platformBreakdown).map(([platform, count]) => (
+                    <div key={platform} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <PlatformIcon platform={platform} className="h-5 w-5" />
+                        <span className="font-semibold">{platform}</span>
+                      </div>
+                      <Badge variant="outline" className="font-semibold">{count} posts</Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </>
+        ) : (
+          <Card className="border-purple-200">
+            <CardContent className="py-12 text-center">
+              <BarChart3 className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                No analytics data available
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Analytics will appear here once you start posting
+              </p>
+              <Button className="btn-gradient-primary">
+                <Plus className="h-4 w-4 mr-2" />
+                Start Posting to See Analytics
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </section>
+
+      {/* Auto-Post Settings Section */}
+      <section id="settings" className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Settings className="h-6 w-6 text-orange-600" />
+              Auto-Post Settings
+            </h2>
+            <p className="text-gray-600 mt-1">
+              Configure automatic posting when you create new tire listings
+            </p>
+          </div>
+          <Button className="btn-primary">
+            <Settings className="h-4 w-4 mr-2" />
+            Save Settings
+          </Button>
+        </div>
+
+        <Card className="border-orange-200">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5 text-orange-600" />
+              Automatic Posting Preferences
+            </CardTitle>
+            <CardDescription>
+              Enable automatic posting to social media platforms when you create new listings.
+              You must have connected accounts for each platform you want to enable.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {[
+              { key: 'autoPostToFacebook', platform: 'FACEBOOK', label: 'Facebook', description: 'Auto-post to your Facebook page or profile' },
+              { key: 'autoPostToInstagram', platform: 'INSTAGRAM', label: 'Instagram', description: 'Share listings to your Instagram feed' },
+              { key: 'autoPostToTwitter', platform: 'TWITTER', label: 'Twitter / X', description: 'Tweet your listings to followers' },
+              { key: 'autoPostToTiktok', platform: 'TIKTOK', label: 'TikTok', description: 'Create posts for TikTok audience' },
+              { key: 'autoPostToSnapchat', platform: 'SNAPCHAT', label: 'Snapchat', description: 'Share to your Snapchat story' },
+            ].map(({ key, platform, label, description }) => {
+              const hasAccount = accounts.some(acc => acc.platform === platform && acc.isActive);
+
+              return (
+                <div key={key} className={`flex items-center justify-between p-4 border-2 rounded-lg transition-colors ${
+                  hasAccount ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-gray-50'
+                }`}>
+                  <div className="flex items-center gap-4">
+                    <PlatformIcon platform={platform} className="h-6 w-6" />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-lg">{label}</span>
+                        {hasAccount ? (
+                          <Badge className="bg-green-100 text-green-800" variant="secondary">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Connected
+                          </Badge>
+                        ) : (
+                          <Badge className="bg-orange-100 text-orange-800" variant="secondary">
+                            <AlertCircle className="h-3 w-3 mr-1" />
+                            Account Required
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">{description}</p>
+                    </div>
+                  </div>
+                  <Switch
+                    checked={autoPostSettings[key as keyof typeof autoPostSettings]}
+                    onCheckedChange={(checked) => {
+                      if (checked && !hasAccount) {
+                        toast.error(`Please connect your ${label} account first`);
+                        return;
+                      }
+                      setAutoPostSettings(prev => ({
+                        ...prev,
+                        [key]: checked,
+                      }));
+                    }}
+                    disabled={!hasAccount}
+                  />
+                </div>
+              );
+            })}
+
+            <div className="pt-4 border-t">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-semibold text-lg">Global Auto-Post Settings</h4>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Apply these settings to all enabled platforms
+                  </p>
+                </div>
+                <Button className="btn-gradient-primary">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Save All Settings
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
     </div>
   );
 }

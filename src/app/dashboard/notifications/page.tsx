@@ -97,11 +97,11 @@ export default async function NotificationsPage() {
         text="Stay updated with your tire marketplace activity."
       >
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
+          <Button className="btn-primary" size="sm">
             <MarkAsRead className="mr-2 h-4 w-4" />
             Mark All Read
           </Button>
-          <Button variant="outline" size="sm">
+          <Button className="btn-primary" size="sm">
             <Settings className="mr-2 h-4 w-4" />
             Settings
           </Button>
@@ -284,10 +284,10 @@ export default async function NotificationsPage() {
                     </div>
 
                     <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="sm">
+                      <Button className="btn-primary" size="sm">
                         <MarkAsRead className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button className="btn-primary" size="sm">
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>

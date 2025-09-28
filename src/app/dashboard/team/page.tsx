@@ -149,7 +149,7 @@ export default async function TeamPage() {
                       )}
                     </div>
 
-                    <Button variant="outline" size="sm">
+                    <Button className="btn-primary" size="sm">
                       <MoreHorizontal className="h-4 w-4" />
                     </Button>
                   </div>
