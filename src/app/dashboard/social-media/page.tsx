@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { DashboardShell } from '@/components/features/dashboard/dashboard-shell';
 import { SocialMediaDashboard } from '@/components/features/social-media/social-media-dashboard';
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function SocialMediaPage() {
-  return <SocialMediaDashboard />;
+  return (
+    <DashboardShell>
+      <SocialMediaDashboard />
+    </DashboardShell>
+  );
 }

@@ -117,6 +117,30 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: url('/images/tg-tires-logo.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: 300px 300px;
+    background-blend-mode: overlay;
+    opacity: 0.03;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/tg-tires-logo.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 300px 300px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: -1;
+    filter: invert(1) brightness(2) contrast(1.2);
   }
 }
 
@@ -401,5 +425,38 @@ button[role="switch"] span[data-state] {
 }
 
 button[role="switch"][data-state="checked"] span[data-state] {
-  transform: translateX(24px) !important;
+  transform: translateX(18px) !important;
+}
+
+/* Enhanced Toggle Switch Visibility */
+[data-slot="switch"] {
+  border: 2px solid #d1d5db !important;
+  background-color: #e5e7eb !important;
+  height: 24px !important;
+  width: 44px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+[data-slot="switch"][data-state="checked"] {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+}
+
+[data-slot="switch-thumb"] {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  width: 16px !important;
+  height: 16px !important;
+  position: absolute !important;
+  top: 3px !important;
+  left: 3px !important;
+  transition: transform 0.2s ease !important;
+}
+
+[data-slot="switch"][data-state="checked"] [data-slot="switch-thumb"] {
+  border-color: #ffffff !important;
+  transform: translateX(1px) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
 }

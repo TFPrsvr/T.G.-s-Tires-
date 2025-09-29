@@ -23,7 +23,9 @@ export default async function HomePage() {
       <header className="container mx-auto px-4 py-6">
         <nav className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Car className="h-8 w-8 text-blue-600" />
+            <div className="h-10 w-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-sm flex items-center justify-center">
+              <span className="text-white font-bold text-base">TG</span>
+            </div>
             <span className="text-2xl font-bold text-gray-900">T.G.'s Tires</span>
           </div>
           <div className="flex items-center gap-6 space-x-4">
@@ -76,16 +78,25 @@ export default async function HomePage() {
       {/* Main Content */}
       <main id="main-content" className="container mx-auto px-4">
         {/* Hero Section */}
-        <section className="py-20 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+        <section className="py-20 text-center relative">
+          {/* Background Logo */}
+          <div
+            className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+            style={{
+              backgroundImage: "url('/images/TG\\'s Tires.png')",
+              backgroundSize: '400px'
+            }}
+          ></div>
+
+          <h1 className="text-5xl font-bold text-gray-900 mb-6 relative z-10">
             Professional Tire Marketplace
             <span className="block text-blue-600 mt-2">with Secure Payments</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto relative z-10">
             List your used tires, offer professional rim mounting services, and sell yard sale items.
             Accept secure payments and manage everything from one dashboard.
           </p>
-          <div className="flex flex-col sm:flex-row gap-8 justify-center">
+          <div className="flex flex-col sm:flex-row gap-8 justify-center relative z-10">
             <a
               href="/sign-up"
               className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
@@ -169,15 +180,19 @@ export default async function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-4 mt-16 border-t">
+      <footer className="container mx-auto px-4 py-2 mt-16 border-t">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
           <div className="text-sm text-gray-600">
             © 2024 T.G.'s Tires. Professional tire marketplace.
           </div>
-          <div className="flex space-x-6 text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-600">
             <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>
+            <span className="mx-4">•</span>
             <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms</Link>
+            <span className="mx-4">•</span>
             <Link href="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
+            <span className="mx-4">•</span>
+            <Link href="/attributions" className="hover:text-blue-600 transition-colors">Attributions</Link>
           </div>
         </div>
       </footer>

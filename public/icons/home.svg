@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path d="M50 15 L20 40 L20 85 L80 85 L80 40 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M50 15 L20 40 L80 40 Z" fill="currentColor"/>
+  <rect x="44" y="70" width="12" height="15" fill="currentColor"/>
+  <rect x="30" y="50" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="60" y="50" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>

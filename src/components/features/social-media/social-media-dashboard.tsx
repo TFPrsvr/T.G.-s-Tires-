@@ -23,13 +23,16 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  Smartphone,
-  Video,
+  Music,
+  Camera,
   Eye,
   ThumbsUp,
   MessageSquare as MessageIcon,
   TrendingUp,
-  Users
+  Users,
+  ExternalLink,
+  HelpCircle,
+  Info
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -72,9 +75,9 @@ function PlatformIcon({ platform, className = "h-4 w-4" }: { platform: string; c
     case 'TWITTER':
       return <Twitter className={className} />;
     case 'TIKTOK':
-      return <Video className={className} />;
+      return <Music className={className} />;
     case 'SNAPCHAT':
-      return <Smartphone className={className} />;
+      return <Camera className={className} />;
     default:
       return <Share2 className={className} />;
   }
@@ -93,10 +96,70 @@ function AddAccountDialog({ onAccountAdded }: { onAccountAdded: () => void }) {
   const platforms = [
     { value: 'FACEBOOK', label: 'Facebook' },
     { value: 'INSTAGRAM', label: 'Instagram' },
-    { value: 'TWITTER', label: 'Twitter / X' },
+    { value: 'TWITTER', label: 'X (formerly Twitter)' },
     { value: 'TIKTOK', label: 'TikTok' },
     { value: 'SNAPCHAT', label: 'Snapchat' },
   ];
+
+  const getPlatformGuide = (platform: string) => {
+    const guides = {
+      FACEBOOK: {
+        steps: [
+          'Go to developers.facebook.com',
+          'Create a new app (choose "Business" type)',
+          'Add your Facebook page',
+          'Generate a Page Access Token',
+          'Use your Page ID as Account ID'
+        ],
+        link: 'https://developers.facebook.com/',
+        tokenHelp: 'Get a Page Access Token from your app dashboard'
+      },
+      INSTAGRAM: {
+        steps: [
+          'Use Facebook for Developers (Instagram uses Facebook API)',
+          'Connect your Instagram business account',
+          'Generate an Instagram User Access Token',
+          'Use your Instagram username as Account ID'
+        ],
+        link: 'https://developers.facebook.com/docs/instagram-api/',
+        tokenHelp: 'Instagram tokens come through Facebook Developer platform'
+      },
+      TWITTER: {
+        steps: [
+          'Go to developer.twitter.com',
+          'Apply for developer account (free)',
+          'Create a new project/app',
+          'Generate Bearer Token or Access Token',
+          'Use your @username as Account ID'
+        ],
+        link: 'https://developer.twitter.com/',
+        tokenHelp: 'Use Bearer Token for app-only access or Access Token for user context'
+      },
+      TIKTOK: {
+        steps: [
+          'Go to developers.tiktok.com',
+          'Register as a developer',
+          'Create an app for your business',
+          'Complete OAuth flow to get access token',
+          'Use your TikTok username as Account ID'
+        ],
+        link: 'https://developers.tiktok.com/',
+        tokenHelp: 'TikTok requires OAuth authentication for access tokens'
+      },
+      SNAPCHAT: {
+        steps: [
+          'Go to developers.snap.com',
+          'Register for Snapchat Marketing API',
+          'Create an app',
+          'Complete OAuth for access token',
+          'Use your Snapchat username as Account ID'
+        ],
+        link: 'https://developers.snap.com/',
+        tokenHelp: 'Snapchat uses OAuth flow for secure token generation'
+      }
+    };
+    return guides[platform as keyof typeof guides];
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,7 +198,7 @@ function AddAccountDialog({ onAccountAdded }: { onAccountAdded: () => void }) {
       <DialogTrigger asChild>
         <Button className="btn-gradient-primary">
           <Plus className="h-4 w-4 mr-2" />
-          Add Account
+          See All Connected Accounts
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -166,6 +229,40 @@ function AddAccountDialog({ onAccountAdded }: { onAccountAdded: () => void }) {
             </Select>
           </div>
 
+          {formData.platform && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <HelpCircle className="h-5 w-5 text-blue-600" />
+                <h4 className="font-semibold text-blue-800">Setup Guide for {platforms.find(p => p.value === formData.platform)?.label}</h4>
+              </div>
+
+              {getPlatformGuide(formData.platform) && (
+                <>
+                  <div className="space-y-2">
+                    <p className="text-sm text-blue-700 font-medium">Steps to get your access token:</p>
+                    <ol className="text-sm text-blue-600 space-y-1 ml-4">
+                      {getPlatformGuide(formData.platform).steps.map((step, index) => (
+                        <li key={index} className="list-decimal">{step}</li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-2 border-t border-blue-200">
+                    <ExternalLink className="h-4 w-4 text-blue-600" />
+                    <a
+                      href={getPlatformGuide(formData.platform).link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 hover:text-blue-800 underline"
+                    >
+                      Open {platforms.find(p => p.value === formData.platform)?.label} Developer Portal
+                    </a>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
           <div className="space-y-2">
             <Label htmlFor="accountId">Account ID / Username</Label>
             <Input
@@ -187,9 +284,14 @@ function AddAccountDialog({ onAccountAdded }: { onAccountAdded: () => void }) {
               onChange={(e) => setFormData(prev => ({ ...prev, accessToken: e.target.value }))}
               required
             />
-            <p className="text-xs text-gray-500">
-              Get your access token from the platform's developer console
-            </p>
+            {formData.platform && getPlatformGuide(formData.platform) && (
+              <div className="flex items-start gap-2 p-2 bg-gray-50 rounded-md">
+                <Info className="h-4 w-4 text-gray-600 mt-0.5 flex-shrink-0" />
+                <p className="text-xs text-gray-600">
+                  {getPlatformGuide(formData.platform).tokenHelp}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -233,8 +335,10 @@ function PostHistoryCard({ post }: { post: SocialPost }) {
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-2">
-            <PlatformIcon platform={post.platform} />
-            <span className="font-medium">{post.platform}</span>
+            <div className="flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-md">
+              <PlatformIcon platform={post.platform} className="h-4 w-4" />
+              <span className="font-medium text-sm">Posted to {post.platform}</span>
+            </div>
           </div>
           <Badge className={statusColors[post.status]} variant="secondary">
             {post.status}
@@ -360,15 +464,15 @@ export function SocialMediaDashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 mr-8 ml-8 pb-12">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
+          <h1 className="text-3xl font-bold flex items-center gap-3 ml-4">
             <Share2 className="h-8 w-8 text-blue-600" />
             Social Media Dashboard
           </h1>
-          <p className="text-gray-600 mt-2 text-lg">
+          <p className="text-gray-600 mt-2 text-lg ml-6">
             Manage your social media accounts and automated posting
           </p>
         </div>
@@ -376,7 +480,7 @@ export function SocialMediaDashboard() {
 
       {/* Quick Actions Header */}
       <div className="grid gap-6 md:grid-cols-4">
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-blue-200 bg-blue-50 flex flex-col h-full">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-blue-800">
               <Users className="h-5 w-5" />
@@ -386,15 +490,21 @@ export function SocialMediaDashboard() {
               Manage your social media connections
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pb-4 flex-1 flex flex-col justify-end">
             <div className="text-2xl font-bold text-blue-800 mb-3">
               {accounts.length} Connected
             </div>
-            <AddAccountDialog onAccountAdded={loadData} />
+            <Button
+              className="btn-primary w-full"
+              onClick={() => document.getElementById('accounts')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Users className="h-4 w-4 mr-2" />
+              Manage Accounts
+            </Button>
           </CardContent>
         </Card>
 
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-green-200 bg-green-50 flex flex-col h-full">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-green-800">
               <MessageIcon className="h-5 w-5" />
@@ -404,7 +514,7 @@ export function SocialMediaDashboard() {
               View all your social media posts
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pb-4 flex-1 flex flex-col justify-end">
             <div className="text-2xl font-bold text-green-800 mb-3">
               {posts.length} Posts
             </div>
@@ -418,7 +528,7 @@ export function SocialMediaDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-purple-200 bg-purple-50">
+        <Card className="border-purple-200 bg-purple-50 flex flex-col h-full">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-purple-800">
               <BarChart3 className="h-5 w-5" />
@@ -428,7 +538,7 @@ export function SocialMediaDashboard() {
               Track your posting performance
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pb-4 flex-1 flex flex-col justify-end">
             <div className="text-2xl font-bold text-purple-800 mb-3">
               {analytics?.successfulPosts || 0} Success
             </div>
@@ -442,7 +552,7 @@ export function SocialMediaDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-orange-200 bg-orange-50">
+        <Card className="border-orange-200 bg-orange-50 flex flex-col h-full">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-orange-800">
               <Settings className="h-5 w-5" />
@@ -452,7 +562,7 @@ export function SocialMediaDashboard() {
               Configure automatic posting
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pb-4 flex-1 flex flex-col justify-end">
             <div className="text-2xl font-bold text-orange-800 mb-3">
               {Object.values(autoPostSettings).filter(Boolean).length} Active
             </div>
@@ -468,14 +578,14 @@ export function SocialMediaDashboard() {
       </div>
 
       {/* Connected Accounts Section */}
-      <section id="accounts" className="space-y-6">
+      <section id="accounts" className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold flex items-center gap-2">
+            <h2 className="text-2xl font-bold flex items-center gap-2 ml-4">
               <Users className="h-6 w-6 text-blue-600" />
               Connected Accounts
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 ml-10">
               Manage your social media platform connections
             </p>
           </div>
@@ -548,14 +658,14 @@ export function SocialMediaDashboard() {
       </section>
 
       {/* Post History Section */}
-      <section id="post-history" className="space-y-6">
+      <section id="post-history" className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold flex items-center gap-2">
+            <h2 className="text-2xl font-bold flex items-center gap-2 ml-4">
               <MessageIcon className="h-6 w-6 text-green-600" />
               Post History
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 ml-10">
               View and manage all your social media posts
             </p>
           </div>
@@ -591,14 +701,14 @@ export function SocialMediaDashboard() {
       </section>
 
       {/* Analytics Section */}
-      <section id="analytics" className="space-y-6">
+      <section id="analytics" className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold flex items-center gap-2">
+            <h2 className="text-2xl font-bold flex items-center gap-2 ml-4">
               <BarChart3 className="h-6 w-6 text-purple-600" />
               Analytics & Performance
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 ml-10">
               Track your social media posting performance and engagement
             </p>
           </div>
@@ -611,7 +721,7 @@ export function SocialMediaDashboard() {
         {analytics ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="border-l-4 border-l-blue-500">
+              <Card className="border-l-4 border-l-blue-500 bg-blue-50">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-2">
                     <BarChart3 className="h-6 w-6 text-blue-600" />
@@ -621,7 +731,7 @@ export function SocialMediaDashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-green-500">
+              <Card className="border-l-4 border-l-green-500 bg-green-50">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-2">
                     <CheckCircle className="h-6 w-6 text-green-600" />
@@ -631,23 +741,23 @@ export function SocialMediaDashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-red-500">
+              <Card className="border-l-4 border-l-purple-500 bg-purple-50">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-2">
-                    <AlertCircle className="h-6 w-6 text-red-600" />
+                    <AlertCircle className="h-6 w-6 text-purple-600" />
                     <span className="font-semibold">Failed</span>
                   </div>
-                  <p className="text-3xl font-bold text-red-600">{analytics.failedPosts}</p>
+                  <p className="text-3xl font-bold text-purple-600">{analytics.failedPosts}</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500">
+              <Card className="border-l-4 border-l-red-500 bg-red-50">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-2">
-                    <TrendingUp className="h-6 w-6 text-purple-600" />
+                    <TrendingUp className="h-6 w-6 text-red-600" />
                     <span className="font-semibold">Success Rate</span>
                   </div>
-                  <p className="text-3xl font-bold text-purple-600">
+                  <p className="text-3xl font-bold text-red-600">
                     {analytics.totalPosts > 0
                       ? Math.round((analytics.successfulPosts / analytics.totalPosts) * 100)
                       : 0}%
@@ -656,7 +766,7 @@ export function SocialMediaDashboard() {
               </Card>
             </div>
 
-            <Card className="border-purple-200">
+            <Card className="border-purple-200 ml-4">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5 text-purple-600" />
@@ -668,15 +778,29 @@ export function SocialMediaDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {Object.entries(analytics.platformBreakdown).map(([platform, count]) => (
-                    <div key={platform} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <PlatformIcon platform={platform} className="h-5 w-5" />
-                        <span className="font-semibold">{platform}</span>
+                  {Object.entries(analytics.platformBreakdown).map(([platform, count]) => {
+                    const isConnected = accounts.some(account => account.platform === platform && account.isActive && !account.tokenExpired);
+                    return (
+                      <div key={platform} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <PlatformIcon platform={platform} className="h-5 w-5" />
+                          <span className="font-semibold">{platform}</span>
+                          {isConnected ? (
+                            <Badge className="bg-green-100 text-green-800" variant="secondary">
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Connected
+                            </Badge>
+                          ) : (
+                            <Badge className="bg-gray-100 text-gray-800" variant="secondary">
+                              <AlertCircle className="h-3 w-3 mr-1" />
+                              Not Connected
+                            </Badge>
+                          )}
+                        </div>
+                        <Badge variant="outline" className="font-semibold">{count} posts</Badge>
                       </div>
-                      <Badge variant="outline" className="font-semibold">{count} posts</Badge>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -701,14 +825,14 @@ export function SocialMediaDashboard() {
       </section>
 
       {/* Auto-Post Settings Section */}
-      <section id="settings" className="space-y-6">
+      <section id="settings" className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold flex items-center gap-2">
+            <h2 className="text-2xl font-bold flex items-center gap-2 ml-4">
               <Settings className="h-6 w-6 text-orange-600" />
               Auto-Post Settings
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 mt-1 ml-10">
               Configure automatic posting when you create new tire listings
             </p>
           </div>
@@ -726,14 +850,14 @@ export function SocialMediaDashboard() {
             </CardTitle>
             <CardDescription>
               Enable automatic posting to social media platforms when you create new listings.
-              You must have connected accounts for each platform you want to enable.
+              Connect your social media accounts first to activate automatic posting for each platform.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {[
               { key: 'autoPostToFacebook', platform: 'FACEBOOK', label: 'Facebook', description: 'Auto-post to your Facebook page or profile' },
               { key: 'autoPostToInstagram', platform: 'INSTAGRAM', label: 'Instagram', description: 'Share listings to your Instagram feed' },
-              { key: 'autoPostToTwitter', platform: 'TWITTER', label: 'Twitter / X', description: 'Tweet your listings to followers' },
+              { key: 'autoPostToTwitter', platform: 'TWITTER', label: 'X (formerly Twitter)', description: 'Post your listings to X followers' },
               { key: 'autoPostToTiktok', platform: 'TIKTOK', label: 'TikTok', description: 'Create posts for TikTok audience' },
               { key: 'autoPostToSnapchat', platform: 'SNAPCHAT', label: 'Snapchat', description: 'Share to your Snapchat story' },
             ].map(({ key, platform, label, description }) => {

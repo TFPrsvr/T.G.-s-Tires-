@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Car, ShoppingBag, DollarSign, Eye, TrendingUp, Loader2 } from "lucide-react";
+import { DollarSign, Eye, TrendingUp, Loader2 } from "lucide-react";
 
 interface DashboardStatsData {
   totalListings: { value: number; change: string; trend: string };
@@ -59,7 +59,7 @@ export function DashboardStats() {
       title: "Active Tire Listings",
       value: stats?.activeListings?.value?.toString() || "0",
       change: stats?.activeListings?.change || "No change",
-      icon: Car,
+      icon: "tire",
       color: "text-blue-600",
       bgColor: "bg-blue-50",
     },
@@ -67,7 +67,7 @@ export function DashboardStats() {
       title: "Yard Sale Items",
       value: stats?.yardSaleItems?.value?.toString() || "0",
       change: stats?.yardSaleItems?.change || "No change",
-      icon: ShoppingBag,
+      icon: "yardSale",
       color: "text-green-600",
       bgColor: "bg-green-50",
     },
@@ -75,7 +75,7 @@ export function DashboardStats() {
       title: "Total Views",
       value: stats?.totalViews?.value?.toLocaleString() || "0",
       change: stats?.totalViews?.change || "No change",
-      icon: Eye,
+      icon: "eyeView",
       color: "text-purple-600",
       bgColor: "bg-purple-50",
     },
@@ -83,32 +83,75 @@ export function DashboardStats() {
       title: "Items Sold",
       value: stats?.soldItems?.value?.toString() || "0",
       change: stats?.soldItems?.change || "No change",
-      icon: DollarSign,
+      icon: "dollarSign",
       color: "text-emerald-600",
       bgColor: "bg-emerald-50",
     },
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-x-0.5 gap-y-6">
       {dashboardStats.map((stat, index) => {
-        const IconComponent = stat.icon;
+        const renderIcon = () => {
+          if (stat.icon === "tire") {
+            return (
+              <div
+                className={`h-10 w-10 ${stat.color}`}
+                style={{
+                  mask: "url('/icons/tire.svg') no-repeat center",
+                  maskSize: '95%',
+                  backgroundColor: 'currentColor'
+                }}
+              />
+            );
+          } else if (stat.icon === "yardSale") {
+            return (
+              <div
+                className={`h-8 w-8 ${stat.color}`}
+                style={{
+                  mask: "url('/icons/sign.svg') no-repeat center",
+                  maskSize: '80%',
+                  backgroundColor: 'currentColor'
+                }}
+              />
+            );
+          } else if (stat.icon === "eyeView") {
+            return (
+              <div
+                className={`h-8 w-8 ${stat.color}`}
+                style={{
+                  mask: "url('/icons/eyeView.svg') no-repeat center",
+                  maskSize: '80%',
+                  backgroundColor: 'currentColor'
+                }}
+              />
+            );
+          } else if (stat.icon === "dollarSign") {
+            return <DollarSign className={`h-8 w-8 ${stat.color}`} />;
+          } else if (typeof stat.icon === 'function') {
+            const IconComponent = stat.icon;
+            return <IconComponent className={`h-8 w-8 ${stat.color}`} />;
+          }
+          return null;
+        };
 
         return (
-          <Card key={index} className="product-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+          <Card key={index} className="product-card max-w-[280px] hover:shadow-lg hover:shadow-blue-100 hover:-translate-y-1 transition-all duration-200 cursor-pointer">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0 px-3 py-0.5">
+              <CardTitle className="text-xs font-medium text-gray-600 leading-none">
                 {stat.title}
               </CardTitle>
-              <div className={`${stat.bgColor} p-2 rounded-md`}>
-                <IconComponent className={`h-4 w-4 ${stat.color}`} />
+              <div className={`${stat.bgColor} p-2 rounded-sm`}>
+                {renderIcon()}
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-contrast-aa">{stat.value}</div>
-              <div className="flex items-center mt-2">
-                <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
-                <p className="text-xs text-gray-600">{stat.change}</p>
+            <CardContent className="px-3 py-0.5 pt-0">
+              <div className="flex items-center justify-between">
+                <div className="text-base font-bold text-contrast-aa leading-none relative -top-0.5 ml-2">{stat.value}</div>
+                <div className="flex items-center relative -top-0.5 mr-2">
+                  <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                  <p className="text-xs text-gray-600 leading-none">{stat.change}</p>
+                </div>
               </div>
             </CardContent>
           </Card>

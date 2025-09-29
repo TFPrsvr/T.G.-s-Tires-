@@ -17,7 +17,18 @@ export function DashboardHeader({
     <div className={cn("flex items-center justify-between px-2", className)}>
       <div className="grid gap-1">
         <h1 className="font-bold text-3xl md:text-4xl text-contrast-aa">{heading}</h1>
-        {text && <p className="text-lg text-gray-600 max-w-2xl">{text}</p>}
+        {text && (
+          <p className="text-lg text-gray-600 max-w-lg leading-snug">
+            {text.includes(',') ? (
+              <>
+                {text.split(',')[0]},<br />
+                {text.split(',')[1].trim()}
+              </>
+            ) : (
+              text
+            )}
+          </p>
+        )}
       </div>
       {children}
     </div>

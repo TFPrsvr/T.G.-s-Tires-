@@ -2,19 +2,7 @@
 
 import { UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils/cn";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Settings,
-  Car,
-  ShoppingBag,
-  Bell,
-  Share2,
-  Users,
-  BarChart3,
-  Home
-} from "lucide-react";
+import { Settings } from "lucide-react";
 import Link from "next/link";
 
 interface DashboardShellProps {
@@ -32,67 +20,86 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
 
       {/* Navigation Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="container flex h-16 items-center justify-between px-4">
-          <div className="flex items-center space-x-4">
+        <div className="container flex h-16 items-center px-4">
+          {/* Logo Section */}
+          <div className="flex items-center space-x-4 min-w-0 flex-1">
             <Link href="/dashboard" className="flex items-center space-x-2">
-              <Car className="h-6 w-6 text-blue-600" />
+              <img
+                src="/images/tg-tires-logo.png"
+                alt="T.G.'s Tires Logo"
+                className="h-8 w-8 object-contain rounded-sm"
+                style={{
+                  filter: 'invert(1) brightness(2) contrast(1.2)',
+                  background: 'transparent'
+                }}
+              />
               <span className="font-bold text-lg">T.G.'s Tires</span>
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link
-              href="/dashboard"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Dashboard home"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/dashboard/listings"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Tire listings management"
-            >
-              Tire Listings
-            </Link>
-            <Link
-              href="/dashboard/yard-sale"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Yard sale items"
-            >
-              Yard Sale
-            </Link>
-            <Link
-              href="/dashboard/messages"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Customer messages"
-            >
-              Messages
-            </Link>
-            <Link
-              href="/dashboard/social-media"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Social media automation"
-            >
-              Social Media
-            </Link>
-            <Link
-              href="/dashboard/notifications"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Notifications center"
-            >
-              Notifications
-            </Link>
-            <Link
-              href="/dashboard/settings"
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
-              aria-label="Account settings"
-            >
-              Settings
-            </Link>
+          {/* Navigation Section - Centered */}
+          <nav className="hidden md:flex items-center flex-2 justify-center ml-8">
+            <div className="flex items-center space-x-8">
+              <Link
+                href="/dashboard"
+                className="text-sm font-medium hover:text-blue-600 transition-colors"
+                aria-label="Dashboard home"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/dashboard/listings"
+                className="text-sm font-medium hover:text-blue-600 transition-colors"
+                aria-label="Tire listings management"
+              >
+                Tire Listings
+              </Link>
+            </div>
+
+            <div className="flex items-center ml-6">
+              <Link
+                href="/dashboard/yard-sale"
+                className="text-sm font-medium hover:text-blue-600 transition-colors mr-6"
+                aria-label="Yard sale items"
+              >
+                Yard Sale
+              </Link>
+              <Link
+                href="/dashboard/messages"
+                className="text-sm font-medium hover:text-blue-600 transition-colors mr-12"
+                aria-label="Customer messages"
+              >
+                Messages
+              </Link>
+              <Link
+                href="/dashboard/social-media"
+                className="text-sm font-medium hover:text-blue-600 transition-colors"
+                aria-label="Social media automation"
+              >
+                Social Media
+              </Link>
+            </div>
+
+            <div className="flex items-center space-x-8 ml-6">
+              <Link
+                href="/dashboard/notifications"
+                className="text-sm font-medium hover:text-blue-600 transition-colors"
+                aria-label="Notifications center"
+              >
+                Notifications
+              </Link>
+              <Link
+                href="/dashboard/settings"
+                className="text-sm font-medium hover:text-blue-600 transition-colors"
+                aria-label="Account settings"
+              >
+                Settings
+              </Link>
+            </div>
           </nav>
 
-          <div className="flex items-center space-x-4">
+          {/* Profile Section */}
+          <div className="flex items-center space-x-4 min-w-0 flex-1 justify-end">
             <UserButton
               afterSignOutUrl="/"
               appearance={{
@@ -115,7 +122,14 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
               className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Dashboard home"
             >
-              <Home className="h-5 w-5 text-gray-600" />
+              <div
+                className="h-5 w-5 text-gray-600"
+                style={{
+                  mask: "url('/icons/home.svg') no-repeat center",
+                  maskSize: '80%',
+                  backgroundColor: 'currentColor'
+                }}
+              />
               <span className="text-xs font-medium text-gray-600">Home</span>
             </Link>
             <Link
@@ -123,7 +137,14 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
               className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Tire listings management"
             >
-              <Car className="h-5 w-5 text-gray-600" />
+              <div
+                className="h-6 w-6 text-gray-600"
+                style={{
+                  mask: "url('/icons/tire.svg') no-repeat center",
+                  maskSize: '95%',
+                  backgroundColor: 'currentColor'
+                }}
+              />
               <span className="text-xs font-medium text-gray-600">Tires</span>
             </Link>
             <Link
@@ -131,7 +152,14 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
               className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Yard sale items"
             >
-              <ShoppingBag className="h-5 w-5 text-gray-600" />
+              <div
+                className="h-5 w-5 text-gray-600"
+                style={{
+                  mask: "url('/icons/sign.svg') no-repeat center",
+                  maskSize: '80%',
+                  backgroundColor: 'currentColor'
+                }}
+              />
               <span className="text-xs font-medium text-gray-600">Yard Sale</span>
             </Link>
             <Link
@@ -147,18 +175,18 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
       </div>
 
       {/* Main Content */}
-      <main id="main-content" className={cn("container px-4 py-8", className)}>
+      <main id="main-content" className={cn("container px-4 py-8 mx-8", className)}>
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-white">
-        <div className="container px-4 py-3">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
+      <footer className="border-t bg-white py-2">
+        <div className="container px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-1 md:space-y-0">
             <div className="text-sm text-gray-600">
               © 2024 T.G.'s Tires. Professional Tire Marketplace.
             </div>
-            <div className="flex items-center space-x-6 text-sm text-gray-600">
+            <div className="flex items-center gap-4 text-sm text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">
                 Privacy
               </Link>
@@ -167,6 +195,9 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
               </Link>
               <Link href="/contact" className="hover:text-blue-600 transition-colors">
                 Contact
+              </Link>
+              <Link href="/attributions" className="hover:text-blue-600 transition-colors">
+                Attributions
               </Link>
             </div>
           </div>
