@@ -117,13 +117,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: url('/images/tg-tires-logo.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: 300px 300px;
-    background-blend-mode: overlay;
-    opacity: 0.03;
   }
 
   body::before {
