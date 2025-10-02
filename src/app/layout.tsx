@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
@@ -7,6 +7,11 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const viewport = {
+  themeColor: "#64748b",
+  width: "device-width",
+  initialScale: 1,
+};
 export const metadata: Metadata = {
   title: "T.G.'s Tires - Professional Tire Marketplace",
   description: "Find quality used tires with professional mounting services and secure payments. Browse yard sale items and shop with confidence.",
@@ -15,7 +20,6 @@ export const metadata: Metadata = {
   creator: "T.G.'s Tires",
   publisher: "T.G.'s Tires",
   manifest: "/manifest.json",
-  themeColor: "#64748b",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
