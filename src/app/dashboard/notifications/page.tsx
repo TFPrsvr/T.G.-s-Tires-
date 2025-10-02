@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Bell, Mail, MessageSquare, DollarSign, Users, Settings, Trash2, MarkAsRead } from "lucide-react";
+import { Bell, Mail, MessageSquare, DollarSign, Users, Settings, Trash2, CheckCheck } from "lucide-react";
 
 // Mock data - in production, this would come from your database
 const mockNotifications = [
@@ -98,7 +98,7 @@ export default async function NotificationsPage() {
       >
         <div className="flex gap-2">
           <Button className="btn-primary" size="sm">
-            <MarkAsRead className="mr-2 h-4 w-4" />
+            <CheckCheck className="mr-2 h-4 w-4" />
             Mark All Read
           </Button>
           <Button className="btn-primary" size="sm">
@@ -285,7 +285,7 @@ export default async function NotificationsPage() {
 
                     <div className="flex items-center gap-1">
                       <Button className="btn-primary" size="sm">
-                        <MarkAsRead className="h-4 w-4" />
+                        <CheckCheck className="h-4 w-4" />
                       </Button>
                       <Button className="btn-primary" size="sm">
                         <Trash2 className="h-4 w-4" />
