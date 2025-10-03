@@ -131,7 +131,7 @@ export default function MarketplacePage() {
                   <SelectValue placeholder="Tire Size" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Sizes</SelectItem>
+                  <SelectItem value="all-sizes">All Sizes</SelectItem>
                   <SelectItem value="195/65R15">195/65R15</SelectItem>
                   <SelectItem value="205/55R16">205/55R16</SelectItem>
                   <SelectItem value="225/60R16">225/60R16</SelectItem>
@@ -145,7 +145,7 @@ export default function MarketplacePage() {
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Locations</SelectItem>
+                  <SelectItem value="all-locations">All Locations</SelectItem>
                   <SelectItem value="Springfield">Springfield, IL</SelectItem>
                   <SelectItem value="Chicago">Chicago, IL</SelectItem>
                   <SelectItem value="Peoria">Peoria, IL</SelectItem>

@@ -395,7 +395,7 @@ export function YardSaleDashboard() {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>
                     {category}
@@ -409,7 +409,7 @@ export function YardSaleDashboard() {
                 <SelectValue placeholder="All Conditions" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Conditions</SelectItem>
+                <SelectItem value="all">All Conditions</SelectItem>
                 {conditions.map(condition => (
                   <SelectItem key={condition.value} value={condition.value}>
                     {condition.label}
