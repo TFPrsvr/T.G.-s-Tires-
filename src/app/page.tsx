@@ -180,19 +180,23 @@ export default async function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-2 mt-16 border-t">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
-          <div className="text-sm text-gray-600">
-            © 2024 T.G.'s Tires. Professional tire marketplace.
-          </div>
-          <div className="flex items-center text-sm text-gray-600">
-            <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>
-            <span className="mx-4">•</span>
-            <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms</Link>
-            <span className="mx-4">•</span>
-            <Link href="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
-            <span className="mx-4">•</span>
-            <Link href="/attributions" className="hover:text-blue-600 transition-colors">Attributions</Link>
+      <footer className="border-t bg-white py-1.5 mt-auto">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-0.5 md:space-y-0">
+            <div className="text-xs text-gray-500">
+              © 2024 T.G.'s Tires
+            </div>
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              <Link href="/privacy" className="hover:text-blue-600 transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-blue-600 transition-colors">
+                Terms
+              </Link>
+              <Link href="/contact" className="hover:text-blue-600 transition-colors">
+                Contact
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

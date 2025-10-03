@@ -296,16 +296,22 @@ export default function MarketplacePage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-16">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-600 mb-4 md:mb-0">
-              © 2024 T.G.&apos;s Tires. Professional tire marketplace.
+      <footer className="border-t bg-white py-1.5 mt-auto">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-0.5 md:space-y-0">
+            <div className="text-xs text-gray-500">
+              © 2024 T.G.'s Tires
             </div>
-            <div className="flex space-x-6 text-gray-600">
-              <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-blue-600 transition-colors">Terms</Link>
-              <Link href="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              <Link href="/privacy" className="hover:text-blue-600 transition-colors">
+                Privacy
+              </Link>
+              <Link href="/terms" className="hover:text-blue-600 transition-colors">
+                Terms
+              </Link>
+              <Link href="/contact" className="hover:text-blue-600 transition-colors">
+                Contact
+              </Link>
             </div>
           </div>
         </div>

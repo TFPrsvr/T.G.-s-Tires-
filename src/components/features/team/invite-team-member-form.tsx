@@ -231,7 +231,7 @@ export function InviteTeamMemberForm() {
               <Send className="mr-2 h-4 w-4" />
               Send Invitation
             </Button>
-            <Button asChild className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-2 rounded-lg shadow-sm hover:shadow-md transition-all">
+            <Button asChild className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all">
               <Link href="/dashboard/team">
                 Cancel
               </Link>
@@ -264,7 +264,7 @@ export function InviteTeamMemberForm() {
             <Button
               variant="outline"
               onClick={() => setShowConfirmation(false)}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800"
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white"
             >
               Cancel
             </Button>
