@@ -90,7 +90,7 @@ export function DashboardStats() {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-x-0.5 gap-y-6">
+    <div className="grid grid-cols-2 gap-4">
       {dashboardStats.map((stat, index) => {
         const renderIcon = () => {
           if (stat.icon === "tire") {
@@ -136,7 +136,7 @@ export function DashboardStats() {
         };
 
         return (
-          <Card key={index} className="product-card max-w-[280px] hover:shadow-lg hover:shadow-blue-100 hover:-translate-y-1 transition-all duration-200 cursor-pointer">
+          <Card key={index} className="product-card max-w-[240px] hover:shadow-lg hover:shadow-blue-100 hover:-translate-y-1 transition-all duration-200 cursor-pointer">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-0 px-3 py-0.5">
               <CardTitle className="text-xs font-medium text-gray-600 leading-none">
                 {stat.title}

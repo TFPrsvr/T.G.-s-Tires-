@@ -26,14 +26,13 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
             <Link href="/dashboard" className="flex items-center space-x-2">
               <img
                 src="/images/tg-tires-logo.png"
-                alt="T.G.'s Tires Logo"
-                className="h-8 w-8 object-contain rounded-sm"
+                alt="T.G.'s Tires"
+                className="h-10 w-10 object-contain rounded-sm"
                 style={{
                   filter: 'invert(1) brightness(2) contrast(1.2)',
                   background: 'transparent'
                 }}
               />
-              <span className="font-bold text-lg">T.G.'s Tires</span>
             </Link>
           </div>
 
@@ -116,59 +115,59 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
       {/* Mobile Navigation */}
       <div className="md:hidden bg-white border-b">
         <div className="container px-4">
-          <div className="mobile-nav grid grid-cols-4 gap-2 py-2">
+          <div className="mobile-nav grid grid-cols-4 gap-2 py-3">
             <Link
               href="/dashboard"
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Dashboard home"
             >
               <div
-                className="h-5 w-5 text-gray-600"
+                className="h-8 w-8 text-gray-700"
                 style={{
                   mask: "url('/icons/home.svg') no-repeat center",
-                  maskSize: '80%',
+                  maskSize: '100%',
                   backgroundColor: 'currentColor'
                 }}
               />
-              <span className="text-xs font-medium text-gray-600">Home</span>
+              <span className="text-[10px] font-medium text-gray-700">Home</span>
             </Link>
             <Link
               href="/dashboard/listings"
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Tire listings management"
             >
               <div
-                className="h-6 w-6 text-gray-600"
+                className="h-8 w-8 text-gray-700"
                 style={{
                   mask: "url('/icons/tire.svg') no-repeat center",
-                  maskSize: '95%',
+                  maskSize: '100%',
                   backgroundColor: 'currentColor'
                 }}
               />
-              <span className="text-xs font-medium text-gray-600">Tires</span>
+              <span className="text-[10px] font-medium text-gray-700">Tires</span>
             </Link>
             <Link
               href="/dashboard/yard-sale"
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Yard sale items"
             >
               <div
-                className="h-5 w-5 text-gray-600"
+                className="h-8 w-8 text-gray-700"
                 style={{
                   mask: "url('/icons/sign.svg') no-repeat center",
-                  maskSize: '80%',
+                  maskSize: '100%',
                   backgroundColor: 'currentColor'
                 }}
               />
-              <span className="text-xs font-medium text-gray-600">Yard Sale</span>
+              <span className="text-[10px] font-medium text-gray-700">Yard Sale</span>
             </Link>
             <Link
               href="/dashboard/settings"
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
               aria-label="Account settings"
             >
-              <Settings className="h-5 w-5 text-gray-600" />
-              <span className="text-xs font-medium text-gray-600">Settings</span>
+              <Settings className="h-8 w-8 text-gray-700" />
+              <span className="text-[10px] font-medium text-gray-700">Settings</span>
             </Link>
           </div>
         </div>
@@ -180,13 +179,13 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-white py-2">
+      <footer className="border-t bg-white py-1.5 mt-auto">
         <div className="container px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-1 md:space-y-0">
-            <div className="text-sm text-gray-600">
-              © 2024 T.G.'s Tires. Professional Tire Marketplace.
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-0.5 md:space-y-0">
+            <div className="text-xs text-gray-500">
+              © 2024 T.G.'s Tires
             </div>
-            <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-3 text-xs text-gray-500">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">
                 Privacy
               </Link>
@@ -195,9 +194,6 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
               </Link>
               <Link href="/contact" className="hover:text-blue-600 transition-colors">
                 Contact
-              </Link>
-              <Link href="/attributions" className="hover:text-blue-600 transition-colors">
-                Attributions
               </Link>
             </div>
           </div>

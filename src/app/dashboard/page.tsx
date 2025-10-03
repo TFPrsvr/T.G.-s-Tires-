@@ -28,7 +28,7 @@ export default async function DashboardPage() {
             <div className="space-y-6">
               <DashboardStats />
             </div>
-            <div className="space-y-1">
+            <div className="space-y-3">
               <h2 className="text-xl font-semibold">Quick Settings</h2>
               <QuickSettings />
             </div>

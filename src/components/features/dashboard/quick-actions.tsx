@@ -48,13 +48,13 @@ export function QuickActions() {
         const IconComponent = action.icon;
 
         return (
-          <Card key={index} className="product-card hover:shadow-lg transition-all duration-200 flex flex-col h-full">
-            <CardHeader className="pb-0 flex-1 p-2">
-              <div className="flex items-start space-x-3">
-                <div className="bg-blue-50 p-1.5 rounded-md flex-shrink-0">
-                  <IconComponent className="h-4 w-4 text-blue-600" />
+          <Card key={index} className="product-card max-w-[240px] hover:shadow-lg transition-all duration-200 flex flex-col h-full">
+            <CardHeader className="pb-0 flex-1 p-3">
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-50 p-2 rounded-md flex-shrink-0">
+                  <IconComponent className="h-5 w-5 text-blue-600" />
                 </div>
-                <div className="space-y-0.5 flex-1">
+                <div className="space-y-1 flex-1">
                   <CardTitle className="text-sm font-semibold">{action.title}</CardTitle>
                   <CardDescription className="text-xs text-gray-600 leading-relaxed">
                     {action.description}
@@ -62,7 +62,7 @@ export function QuickActions() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-1 mt-auto p-2">
+            <CardContent className="pt-2 mt-auto p-3">
               <Button
                 asChild
                 variant={action.variant}
