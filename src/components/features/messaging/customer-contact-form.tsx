@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Phone, Mail, MessageSquare, Send, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import { SecurityInputValidator } from '@/lib/security/input-validator';

@@ -1,6 +1,4 @@
-import { z } from 'zod';
 import { db } from '@/lib/db/database';
-import type { Notification } from '@/types';
 
 export type MessageChannel = 'SMS' | 'EMAIL' | 'IN_APP';
 
@@ -12,7 +10,7 @@ export interface IncomingMessage {
   channel: MessageChannel;
   timestamp: Date;
   conversationId: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface OutgoingMessage {
@@ -24,7 +22,7 @@ export interface OutgoingMessage {
   timestamp: Date;
   conversationId: string;
   inReplyTo?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface Conversation {
@@ -77,7 +75,7 @@ export class MessageRouter {
     content: string,
     channel: MessageChannel,
     businessId: string = 'tgs-default',
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<IncomingMessage> {
     const conversation = await this.getOrCreateConversation(from, businessId, channel);
 
@@ -318,7 +316,7 @@ export class MessageRouter {
   }
 
   // Mark conversation as read
-  static markConversationAsRead(conversationId: string, userId: string): void {
+  static markConversationAsRead(conversationId: string, _userId: string): void {
     const conversation = this.conversations.get(conversationId);
     if (conversation) {
       conversation.updatedAt = new Date();

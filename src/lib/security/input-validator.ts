@@ -87,18 +87,25 @@ export class SecurityInputValidator {
     return patterns.some(pattern => pattern.test(input));
   }
 
-  static validateTireData(data: any): { valid: boolean; errors: string[] } {
+  static validateTireData(data: unknown): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
-    if (!data.size || typeof data.size !== 'string' || data.size.length > 50) {
+    if (typeof data !== 'object' || data === null) {
+      errors.push('Invalid data format');
+      return { valid: false, errors };
+    }
+
+    const tireData = data as Record<string, unknown>;
+
+    if (!tireData.size || typeof tireData.size !== 'string' || tireData.size.length > 50) {
       errors.push('Invalid tire size format');
     }
 
-    if (data.price && !this.validatePrice(data.price)) {
+    if (tireData.price && !this.validatePrice(tireData.price)) {
       errors.push('Invalid price format');
     }
 
-    if (data.description && (typeof data.description !== 'string' || data.description.length > 2000)) {
+    if (tireData.description && (typeof tireData.description !== 'string' || tireData.description.length > 2000)) {
       errors.push('Description too long or invalid format');
     }
 
@@ -109,7 +116,7 @@ export class SecurityInputValidator {
     return { valid: errors.length === 0, errors };
   }
 
-  static logSecurityEvent(event: string, details: any, severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL') {
+  static logSecurityEvent(event: string, details: unknown, severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL') {
     const logEntry = {
       timestamp: new Date().toISOString(),
       event,

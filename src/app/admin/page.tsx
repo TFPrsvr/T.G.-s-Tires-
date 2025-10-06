@@ -8,19 +8,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Users,
   FileText,
-  Database,
   Shield,
   Search,
   Eye,
-  Edit,
-  Trash2,
   AlertTriangle,
   CheckCircle,
-  XCircle,
   RefreshCw
 } from "lucide-react";
 import { toast } from "sonner";
@@ -38,7 +33,12 @@ interface AdminStats {
   publishedListings: number;
   pendingListings: number;
   totalViews: number;
-  recentActivity: any[];
+  recentActivity: Array<{
+    id: string;
+    type: string;
+    description: string;
+    timestamp: Date;
+  }>;
 }
 
 interface User {
@@ -75,7 +75,6 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);
   const [listings, setListings] = useState<Listing[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   // Check if user is admin
@@ -96,8 +95,6 @@ export default function AdminDashboard() {
 
   const fetchAdminData = async () => {
     try {
-      setIsLoading(true);
-
       // Fetch admin stats
       const [statsRes, usersRes, listingsRes] = await Promise.all([
         fetch('/api/admin/stats'),
@@ -123,8 +120,6 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error("Error fetching admin data:", error);
       toast.error("Failed to load admin data");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -146,7 +141,7 @@ export default function AdminDashboard() {
       } else {
         throw new Error('Failed to update user status');
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to update user status");
     }
   };
@@ -169,7 +164,7 @@ export default function AdminDashboard() {
       } else {
         throw new Error('Failed to update listing status');
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to update listing status");
     }
   };

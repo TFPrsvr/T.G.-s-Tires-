@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Eye, TrendingUp, Loader2 } from "lucide-react";
+import { DollarSign, TrendingUp, Loader2 } from "lucide-react";
 
 interface DashboardStatsData {
   totalListings: { value: number; change: string; trend: string };

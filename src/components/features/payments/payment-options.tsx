@@ -13,7 +13,6 @@ import {
   CreditCard,
   Link as LinkIcon,
   DollarSign,
-  Send,
   CheckCircle,
   Clock,
   Smartphone,

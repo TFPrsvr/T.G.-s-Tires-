@@ -5,7 +5,7 @@ import { DashboardHeader } from "@/components/features/dashboard/dashboard-heade
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { UserPlus, Users, Settings, Mail, MoreHorizontal } from "lucide-react";
+import { UserPlus, Users, Mail, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
 // Mock data - in production, this would come from your database

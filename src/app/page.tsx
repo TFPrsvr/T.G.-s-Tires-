@@ -1,6 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Car, Shield, Zap } from "lucide-react";
 import Link from "next/link";
 
@@ -26,10 +25,10 @@ export default async function HomePage() {
             <div className="h-10 w-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-sm flex items-center justify-center">
               <span className="text-white font-bold text-base">TG</span>
             </div>
-            <span className="text-2xl font-bold text-gray-900">T.G.'s Tires</span>
+            <span className="text-2xl font-bold text-gray-900">T.G.&apos;s Tires</span>
           </div>
           <div className="flex items-center gap-6 space-x-4">
-            <a
+            <Link
               href="/sign-in"
               className="btn-primary"
               style={{
@@ -49,8 +48,8 @@ export default async function HomePage() {
               }}
             >
               Sign In
-            </a>
-            <a
+            </Link>
+            <Link
               href="/sign-up"
               className="btn-gradient-primary"
               style={{
@@ -70,7 +69,7 @@ export default async function HomePage() {
               }}
             >
               Get Started
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
@@ -97,7 +96,7 @@ export default async function HomePage() {
             Accept secure payments and manage everything from one dashboard.
           </p>
           <div className="flex flex-col sm:flex-row gap-8 justify-center relative z-10">
-            <a
+            <Link
               href="/sign-up"
               className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
               style={{
@@ -106,7 +105,7 @@ export default async function HomePage() {
               }}
             >
               Start Selling Today
-            </a>
+            </Link>
             <a
               href="/marketplace"
               className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
@@ -163,10 +162,10 @@ export default async function HomePage() {
             Ready to Start Your Tire Business?
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join hundreds of tire sellers who trust T.G.'s Tires for their marketplace needs.
+            Join hundreds of tire sellers who trust T.G.&apos;s Tires for their marketplace needs.
             Professional tools, secure payments, and unlimited listings.
           </p>
-          <a
+          <Link
             href="/sign-up"
             className="inline-flex items-center justify-center px-8 py-6 text-lg font-semibold text-white rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-105"
             style={{
@@ -175,7 +174,7 @@ export default async function HomePage() {
             }}
           >
             Create Free Account
-          </a>
+          </Link>
         </section>
       </main>
 
@@ -184,7 +183,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-0.5 md:space-y-0">
             <div className="text-xs text-gray-500">
-              © 2024 T.G.'s Tires
+              © 2024 T.G.&apos;s Tires
             </div>
             <div className="flex items-center gap-3 text-xs text-gray-500">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">

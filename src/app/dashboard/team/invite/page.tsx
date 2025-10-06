@@ -5,7 +5,7 @@ import { DashboardShell } from "@/components/features/dashboard/dashboard-shell"
 import { DashboardHeader } from "@/components/features/dashboard/dashboard-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Users, Shield } from "lucide-react";
+import { ArrowLeft, Shield } from "lucide-react";
 import Link from "next/link";
 
 export default async function InviteTeamMemberPage() {

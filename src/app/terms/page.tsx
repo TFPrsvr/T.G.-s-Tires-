@@ -13,7 +13,7 @@ export default function TermsOfServicePage() {
             <div className="flex items-center space-x-2">
               <Car className="h-8 w-8 text-blue-600" />
               <Link href="/" className="text-2xl font-bold text-gray-900">
-                T.G.'s Tires
+                T.G.&apos;s Tires
               </Link>
             </div>
             <Button asChild className="btn-primary">
@@ -38,14 +38,14 @@ export default function TermsOfServicePage() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
               <p className="mb-4">
-                By accessing and using T.G.'s Tires marketplace platform, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                By accessing and using T.G.&apos;s Tires marketplace platform, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold mb-4">2. Platform Description</h2>
               <p className="mb-4">
-                T.G.'s Tires operates an online marketplace platform that connects tire sellers with potential buyers. Our platform facilitates:
+                T.G.&apos;s Tires operates an online marketplace platform that connects tire sellers with potential buyers. Our platform facilitates:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
                 <li>Listing and selling used tires and automotive products</li>
@@ -133,7 +133,7 @@ export default function TermsOfServicePage() {
 
               <h3 className="text-xl font-medium mb-2">Payment Processing</h3>
               <p className="mb-4">
-                We use Stripe for secure payment processing. By using our payment services, you agree to Stripe's terms of service.
+                We use Stripe for secure payment processing. By using our payment services, you agree to Stripe&apos;s terms of service.
               </p>
 
               <h3 className="text-xl font-medium mb-2">Platform Fees</h3>
@@ -148,7 +148,7 @@ export default function TermsOfServicePage() {
 
               <h3 className="text-xl font-medium mb-2">Refunds and Disputes</h3>
               <p className="mb-4">
-                Refund policies are determined by individual sellers. T.G.'s Tires may mediate disputes but is not responsible for refunds or returns.
+                Refund policies are determined by individual sellers. T.G.&apos;s Tires may mediate disputes but is not responsible for refunds or returns.
               </p>
             </section>
 
@@ -185,7 +185,7 @@ export default function TermsOfServicePage() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">9. Limitation of Liability</h2>
               <p className="mb-4">
-                T.G.'s Tires acts as a marketplace platform connecting buyers and sellers. We are not responsible for:
+                T.G.&apos;s Tires acts as a marketplace platform connecting buyers and sellers. We are not responsible for:
               </p>
               <ul className="list-disc pl-6 mb-4 space-y-1">
                 <li>The quality, safety, or legality of listed items</li>
@@ -223,7 +223,7 @@ export default function TermsOfServicePage() {
                 For questions about these terms of service, please contact us:
               </p>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p><strong>T.G.'s Tires</strong></p>
+                <p><strong>T.G.&apos;s Tires</strong></p>
                 <p>Email: legal@tgstires.com</p>
                 <p>Phone: (217) 555-0123</p>
                 <p>Address: 456 Tire Street, Springfield, IL 62701</p>
@@ -238,7 +238,7 @@ export default function TermsOfServicePage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-600 mb-4 md:mb-0">
-              © 2024 T.G.'s Tires. Professional tire marketplace.
+              © 2024 T.G.&apos;s Tires. Professional tire marketplace.
             </div>
             <div className="flex space-x-6 text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>

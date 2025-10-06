@@ -1,6 +1,5 @@
 import Stripe from 'stripe';
 import { db } from '@/lib/db/database';
-import type { Payment, TireListing, YardSaleItem } from '@/types';
 
 // Initialize Stripe with secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -222,14 +221,14 @@ export class PaymentProcessor {
   }
 
   // Get payment record by Stripe ID
-  private static async getPaymentByStripeId(stripeId: string): Promise<Payment | null> {
+  private static async getPaymentByStripeId(_stripeId: string): Promise<Payment | null> {
     // This would need to be implemented in your database layer
     // For now, returning null as placeholder
     return null;
   }
 
   // Send receipt email to customer
-  private static async sendReceipt(payment: Payment, paymentIntent: Stripe.PaymentIntent): Promise<void> {
+  private static async sendReceipt(payment: Payment, _paymentIntent: Stripe.PaymentIntent): Promise<void> {
     try {
       const receiptHtml = this.generateReceiptHTML(payment, paymentIntent);
 
@@ -248,7 +247,7 @@ export class PaymentProcessor {
   }
 
   // Notify business owner of new payment
-  private static async notifyBusinessOfPayment(payment: Payment, paymentIntent: Stripe.PaymentIntent): Promise<void> {
+  private static async notifyBusinessOfPayment(payment: Payment, _paymentIntent: Stripe.PaymentIntent): Promise<void> {
     try {
       await db.createNotification({
         type: 'IN_APP',
@@ -269,7 +268,7 @@ export class PaymentProcessor {
   }
 
   // Generate HTML receipt
-  private static generateReceiptHTML(payment: Payment, paymentIntent: Stripe.PaymentIntent): string {
+  private static generateReceiptHTML(payment: Payment, _paymentIntent: Stripe.PaymentIntent): string {
     const receiptDate = new Date().toLocaleDateString();
     const receiptTime = new Date().toLocaleTimeString();
 

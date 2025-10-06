@@ -15,7 +15,7 @@ async function isAdmin() {
   return userEmail && ADMIN_EMAILS.includes(userEmail);
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const { userId } = await auth();
 

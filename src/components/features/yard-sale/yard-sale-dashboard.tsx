@@ -12,15 +12,13 @@ import {
   Tag,
   Plus,
   Search,
-  Filter,
   MoreHorizontal,
   Edit,
   Trash2,
   Eye,
   Calendar,
   MapPin,
-  DollarSign,
-  Image as ImageIcon
+  DollarSign
 } from "lucide-react";
 import { toast } from "sonner";
 import { YardSaleForm } from './yard-sale-form';

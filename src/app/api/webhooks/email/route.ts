@@ -4,7 +4,7 @@ import { SecurityInputValidator } from '@/lib/security/input-validator';
 
 // Webhook handler for incoming email replies from customers
 // This would typically be configured with your email service (SendGrid, Postmark, etc.)
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const body = await request.json();
 
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle GET requests for webhook verification
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     status: 'Email webhook endpoint active',
     timestamp: new Date().toISOString()

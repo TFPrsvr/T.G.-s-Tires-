@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Edit, Eye, Trash2, DollarSign, Plus } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 interface TireListing {
   id: string;
@@ -36,7 +35,6 @@ interface ListingsManagerProps {
 export function ListingsManager({ initialListings }: ListingsManagerProps) {
   const [listings, setListings] = useState<TireListing[]>(initialListings);
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
-  const router = useRouter();
 
   const handleDelete = async (listingId: string, title: string) => {
     if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {

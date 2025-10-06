@@ -3,7 +3,7 @@ import { MessageRouter } from '@/lib/messaging/message-router';
 import { SecurityInputValidator } from '@/lib/security/input-validator';
 import { RateLimiter } from '@/lib/security/rate-limiter';
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const clientIP = request.ip || '127.0.0.1';
 
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     status: 'Customer inquiry endpoint active',
     supportedChannels: ['SMS', 'EMAIL', 'IN_APP'],

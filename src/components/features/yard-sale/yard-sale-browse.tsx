@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   Tag,
   Search,
-  Filter,
   Calendar,
   MapPin,
   DollarSign,
@@ -344,7 +343,7 @@ export function YardSaleBrowse() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            T.G.'s Tires Yard Sale
+            T.G.&apos;s Tires Yard Sale
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Find great deals on household items, furniture, electronics, and more from our yard sales

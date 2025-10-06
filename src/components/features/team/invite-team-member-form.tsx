@@ -96,7 +96,7 @@ export function InviteTeamMemberForm() {
                   required
                 />
                 <p className="text-xs text-gray-600">
-                  We'll send an invitation email to this address.
+                  We&apos;ll send an invitation email to this address.
                 </p>
               </div>
             </TabsContent>
@@ -113,7 +113,7 @@ export function InviteTeamMemberForm() {
                   required
                 />
                 <p className="text-xs text-gray-600">
-                  We'll send an invitation SMS to this number.
+                  We&apos;ll send an invitation SMS to this number.
                 </p>
               </div>
             </TabsContent>

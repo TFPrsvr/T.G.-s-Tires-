@@ -29,7 +29,6 @@ export async function POST(request: NextRequest) {
       itemType,
       platforms,
       scheduleFor,
-      customContent
     } = body;
 
     // Validate required fields

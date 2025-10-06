@@ -1,18 +1,15 @@
 "use client";
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import {
   Share2,
-  Calendar,
-  CheckCircle,
   AlertCircle,
   Facebook,
   Instagram,
@@ -140,7 +137,12 @@ export function SocialMediaPostDialog({
     setLoading(true);
 
     try {
-      const postData: any = {
+      const postData: {
+        itemId: string;
+        itemType: string;
+        platforms: string[];
+        customContent?: string;
+      } = {
         itemId: item.id,
         itemType,
         platforms: selectedPlatforms,

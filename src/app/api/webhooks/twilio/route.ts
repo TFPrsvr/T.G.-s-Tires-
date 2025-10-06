@@ -3,7 +3,7 @@ import { MessageRouter } from '@/lib/messaging/message-router';
 import { SecurityInputValidator } from '@/lib/security/input-validator';
 
 // Webhook handler for incoming SMS messages from customers
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const formData = await request.formData();
 
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle GET requests (for webhook verification if needed)
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     status: 'Twilio SMS webhook endpoint active',
     timestamp: new Date().toISOString()

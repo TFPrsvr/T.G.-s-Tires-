@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Bell, Mail, MessageSquare, DollarSign, Users, Settings, Trash2, CheckCheck } from "lucide-react";
+import { Bell, MessageSquare, DollarSign, Users, Settings, Trash2, CheckCheck } from "lucide-react";
 
 // Mock data - in production, this would come from your database
 const mockNotifications = [
@@ -75,11 +75,6 @@ const getNotificationIcon = (type: string) => {
   }
 };
 
-const getNotificationColor = (type: string, priority: string) => {
-  if (!read && priority === "high") return "border-red-200 bg-red-50";
-  if (!read) return "border-blue-200 bg-blue-50";
-  return "border-gray-200 bg-white";
-};
 
 export default async function NotificationsPage() {
   const { userId } = await auth();

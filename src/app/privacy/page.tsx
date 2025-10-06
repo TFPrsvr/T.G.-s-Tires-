@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
             <div className="flex items-center space-x-2">
               <Car className="h-8 w-8 text-blue-600" />
               <Link href="/" className="text-2xl font-bold text-gray-900">
-                T.G.'s Tires
+                T.G.&apos;s Tires
               </Link>
             </div>
             <Button asChild className="btn-primary">
@@ -166,7 +166,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">7. Children's Privacy</h2>
+              <h2 className="text-2xl font-semibold mb-4">7. Children&apos;s Privacy</h2>
               <p className="mb-4">
                 Our services are not intended for children under 13. We do not knowingly collect personal information from children under 13.
               </p>
@@ -185,7 +185,7 @@ export default function PrivacyPolicyPage() {
                 If you have questions about this privacy policy or our data practices, please contact us:
               </p>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p><strong>T.G.'s Tires</strong></p>
+                <p><strong>T.G.&apos;s Tires</strong></p>
                 <p>Email: privacy@tgstires.com</p>
                 <p>Phone: (217) 555-0123</p>
                 <p>Address: 456 Tire Street, Springfield, IL 62701</p>
@@ -200,7 +200,7 @@ export default function PrivacyPolicyPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-600 mb-4 md:mb-0">
-              © 2024 T.G.'s Tires. Professional tire marketplace.
+              © 2024 T.G.&apos;s Tires. Professional tire marketplace.
             </div>
             <div className="flex space-x-6 text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>

@@ -17,7 +17,7 @@ export default function ContactPage() {
             <div className="flex items-center space-x-2">
               <Car className="h-8 w-8 text-blue-600" />
               <Link href="/" className="text-2xl font-bold text-gray-900">
-                T.G.'s Tires
+                T.G.&apos;s Tires
               </Link>
             </div>
             <Button asChild className="btn-primary">
@@ -35,7 +35,7 @@ export default function ContactPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Have questions about our tire marketplace? Need help with your account? We're here to help!
+              Have questions about our tire marketplace? Need help with your account? We&apos;re here to help!
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export default function ContactPage() {
                   Send us a Message
                 </CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Fill out the form below and we&apos;ll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -257,7 +257,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-600 mb-4 md:mb-0">
-              © 2024 T.G.'s Tires. Professional tire marketplace.
+              © 2024 T.G.&apos;s Tires. Professional tire marketplace.
             </div>
             <div className="flex space-x-6 text-gray-600">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>

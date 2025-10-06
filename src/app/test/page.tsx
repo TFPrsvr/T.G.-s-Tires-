@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function TestPage() {
   return (
     <div style={{ padding: '20px', backgroundColor: 'white' }}>
@@ -27,7 +29,7 @@ export default function TestPage() {
 
       {/* Simple links */}
       <div style={{ margin: '20px 0' }}>
-        <a href="/sign-in" style={{
+        <Link href="/sign-in" style={{
           display: 'inline-block',
           background: '#64748b',
           color: 'white',
@@ -37,9 +39,9 @@ export default function TestPage() {
           margin: '10px'
         }}>
           Go to Sign In
-        </a>
+        </Link>
 
-        <a href="/sign-up" style={{
+        <Link href="/sign-up" style={{
           display: 'inline-block',
           background: '#059669',
           color: 'white',
@@ -49,7 +51,7 @@ export default function TestPage() {
           margin: '10px'
         }}>
           Go to Sign Up
-        </a>
+        </Link>
       </div>
     </div>
   );

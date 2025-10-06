@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
     // For dashboard (authenticated user), show their own listings
     const isPublicAccess = status === 'PUBLISHED';
 
-    const where: Record<string, any> = {};
+    const where: Record<string, unknown> = {};
 
     if (isPublicAccess) {
       // Public marketplace access - show published listings from all users

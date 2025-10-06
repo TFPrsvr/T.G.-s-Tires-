@@ -21,8 +21,8 @@ class InvitationManager {
   private readonly MAX_PENDING_INVITATIONS = 10;
 
   async createInvitation(
-    inviterEmail: string,
-    inviteeEmail: string,
+    _inviterEmail: string,
+    _inviteeEmail: string,
     role: 'ADMIN' | 'USER' = 'USER',
     permissions: string[] = []
   ): Promise<InvitationResponse> {
@@ -312,12 +312,12 @@ class InvitationManager {
     return tab.role === 'OWNER' || tab.role === 'ADMIN';
   }
 
-  private async getInvitationsByEmail(email: string): Promise<Invitation[]> {
+  private async getInvitationsByEmail(_email: string): Promise<Invitation[]> {
     // This would be implemented in the database layer
     return [];
   }
 
-  private async getPendingInvitationCount(inviterEmail: string): Promise<number> {
+  private async getPendingInvitationCount(_inviterEmail: string): Promise<number> {
     // This would be implemented in the database layer
     return 0;
   }

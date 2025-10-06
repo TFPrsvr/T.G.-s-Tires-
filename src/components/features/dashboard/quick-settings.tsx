@@ -3,17 +3,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Settings } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function QuickSettings() {
-  const [mounted, setMounted] = useState(false);
   const [autoSocialMedia, setAutoSocialMedia] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [teamSync, setTeamSync] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <Card className="product-card">

@@ -1,5 +1,3 @@
-import { DashboardShell } from "@/components/features/dashboard/dashboard-shell";
-import { DashboardHeader } from "@/components/features/dashboard/dashboard-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -62,7 +60,7 @@ export default function AttributionsPage() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-gray-900">T.G.'s Tires</span>
+              <span className="text-2xl font-bold text-gray-900">T.G.&apos;s Tires</span>
             </Link>
             <nav className="flex items-center space-x-6">
               <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
@@ -82,7 +80,7 @@ export default function AttributionsPage() {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Attributions</h1>
             <p className="text-lg text-gray-600">
-              We acknowledge and thank the creators of icons and assets used in T.G.'s Tires marketplace platform.
+              We acknowledge and thank the creators of icons and assets used in T.G.&apos;s Tires marketplace platform.
             </p>
           </div>
 
@@ -160,7 +158,7 @@ export default function AttributionsPage() {
       <footer className="container mx-auto px-4 py-4 mt-16 border-t">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
           <div className="text-sm text-gray-600">
-            © 2024 T.G.'s Tires. Professional Tire Marketplace.
+            © 2024 T.G.&apos;s Tires. Professional Tire Marketplace.
           </div>
           <div className="flex space-x-6 text-sm text-gray-600">
             <Link href="/privacy" className="hover:text-blue-600 transition-colors">Privacy</Link>

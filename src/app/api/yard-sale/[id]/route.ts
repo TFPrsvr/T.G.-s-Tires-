@@ -193,7 +193,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       .reduce((obj, key) => {
         obj[key] = body[key];
         return obj;
-      }, {} as any);
+      }, {} as Record<string, unknown>);
 
     if (Object.keys(updateData).length === 0) {
       return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });

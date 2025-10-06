@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, CalendarIcon, ImageIcon, MapPin, DollarSign, Tag, CheckCircle, AlertCircle, Upload, X } from "lucide-react";
+import { CalendarIcon, ImageIcon, MapPin, DollarSign, Tag, CheckCircle, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 import { YardSaleItemSchema } from '@/types';
 import type { YardSaleItem } from '@/types';
@@ -54,7 +54,7 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
     'Sporting Goods', 'Garden Items', 'Automotive', 'Other'
   ];
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value: unknown) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -185,7 +185,6 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
     }
   };
 
-  const currentCondition = conditions.find(c => c.value === formData.condition);
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -262,7 +261,7 @@ export function YardSaleForm({ onSubmit, initialData, isEditing = false }: YardS
                   onChange={(e) => handleInputChange('price', e.target.value)}
                 />
               </div>
-              <p className="text-xs text-gray-500">Leave empty for "Make Offer"</p>
+              <p className="text-xs text-gray-500">Leave empty for &quot;Make Offer&quot;</p>
             </div>
 
             <div className="space-y-2">

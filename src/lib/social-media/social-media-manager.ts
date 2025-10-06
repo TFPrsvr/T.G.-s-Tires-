@@ -1,6 +1,5 @@
 import { SecurityInputValidator } from '@/lib/security/input-validator';
 import { db } from '@/lib/db/database';
-import type { SocialMediaPost, TireListing, YardSaleItem } from '@/types';
 
 export interface SocialMediaAccount {
   platform: 'FACEBOOK' | 'INSTAGRAM' | 'TWITTER' | 'TIKTOK' | 'SNAPCHAT';
@@ -430,7 +429,7 @@ class SocialMediaManager {
       // In production, this would integrate with a job queue system
       const result = await this.createPost(userId, item, itemType, {
         scheduleFor,
-        platforms: platforms as any,
+        platforms,
       });
 
       return result.success;
@@ -441,7 +440,7 @@ class SocialMediaManager {
   }
 
   // Get posting analytics
-  async getPostAnalytics(userId: string, days: number = 30): Promise<{
+  async getPostAnalytics(userId: string, _days: number = 30): Promise<{
     totalPosts: number;
     successfulPosts: number;
     failedPosts: number;

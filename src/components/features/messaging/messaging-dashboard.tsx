@@ -6,15 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   MessageSquare,
   Phone,
   Mail,
   Send,
-  Clock,
   Check,
-  CheckCheck,
   Archive,
   X,
   User,
@@ -304,7 +301,7 @@ export function MessagingDashboard() {
             {/* Messages */}
             <CardContent className="p-0 flex-1">
               <div className="h-[500px] overflow-y-auto p-4 space-y-4">
-                {selectedConversation.messages.map((message, index) => {
+                {selectedConversation.messages.map((message, _index) => {
                   const isIncoming = 'from' in message && message.from !== 'tgs-default';
                   return (
                     <div

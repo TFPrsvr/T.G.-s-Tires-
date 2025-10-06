@@ -7,11 +7,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { CreditCard, Shield, CheckCircle, AlertCircle } from "lucide-react";
+import { CreditCard, Shield, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import getStripe, { STRIPE_CONFIG, formatCurrency, dollarsToStripeAmount } from '@/lib/payments/stripe-config';
+import getStripe, { STRIPE_CONFIG } from '@/lib/payments/stripe-config';
 import type { TireListing, YardSaleItem } from '@/types';
 
 interface CheckoutFormProps {

@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const status = searchParams.get('status');
 
-    const where: Record<string, any> = {};
+    const where: Record<string, unknown> = {};
     if (status) {
       where.status = status.toUpperCase();
     }

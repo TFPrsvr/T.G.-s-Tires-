@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { PaymentProcessor } from '@/lib/payments/payment-processor';
 import { SecurityInputValidator } from '@/lib/security/input-validator';
 import { RateLimiter } from '@/lib/security/rate-limiter';
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const clientIP = request.ip || '127.0.0.1';
 
@@ -163,7 +162,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     status: 'Payment creation endpoint active',
     supportedTypes: ['immediate', 'link'],

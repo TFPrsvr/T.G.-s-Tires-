@@ -183,7 +183,7 @@ export function DashboardShell({ children, className }: DashboardShellProps) {
         <div className="container px-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-0.5 md:space-y-0">
             <div className="text-xs text-gray-500">
-              © 2024 T.G.'s Tires
+              © 2024 T.G.&apos;s Tires
             </div>
             <div className="flex items-center gap-3 text-xs text-gray-500">
               <Link href="/privacy" className="hover:text-blue-600 transition-colors">
